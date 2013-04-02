@@ -34,7 +34,7 @@ namespace SRTelestrations
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         private string UploadImage(string image, string id)
         {
-            /*var fileNameWitPath = "C:\\" + this.GetImageName();
+            var fileNameWitPath = "C:\\" + this.GetImageName();
             using (var fs = new FileStream(fileNameWitPath, FileMode.Create))
             {
                 using (var bw = new BinaryWriter(fs))
@@ -43,7 +43,7 @@ namespace SRTelestrations
                     bw.Write(data);
                     bw.Close();
                 }
-            }*/
+            }
             var context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
             ChatHub.GameManager.AddItemForPlayer(this.GetImageName(), id);
             return "great";
