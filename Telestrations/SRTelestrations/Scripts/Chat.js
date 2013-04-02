@@ -17,16 +17,43 @@ function getOffset(el) {
 }
 
 function Draw() {
+    var xhr;
     var drawCanvas = document.getElementById("draw");
     var submitDraw = document.getElementById("sendDrawing");
     var drawHub = $.connection.chatHub;
     var register = document.getElementById("register");
+    var testLoader = document.getElementById("testLoader");
+    var playArea = document.getElementById("playArea");
+
     register.addEventListener('click', registerMe);
     
     submitDraw.addEventListener('click', submitDrawClick);
     var draw = false;
     var canvasCtx = drawCanvas.getContext("2d");
     var os = getOffset(drawCanvas);
+
+
+    testLoader.addEventListener("click", testLoad);
+    
+    function testLoad() {
+        xhr = new XMLHttpRequest();
+        xhr.open("GET", "WrittenGuess.html", true);
+        xhr.onreadystatechange = onchange;
+        xhr.send();
+
+    }
+    
+    function onchange(evt) {
+        var req = evt.currentTarget; 
+
+        switch (req.readyState) {
+            case XMLHttpRequest.DONE:
+            case 4:
+                var hasResponse = req.status === 200 || req.status === 0;
+                playArea.innerHTML = hasResponse ? req.responseText : "<h1>Unable to load text file: status=" + req.status + "</h1>";
+                break;
+        }
+    }
     
     function registerMe() {
         drawHub.server.register();
@@ -45,14 +72,6 @@ function Draw() {
             success: success,
             error: fail
         });
-        
-        function success(msg) {
-
-        }
-        
-        function fail(msg) {
-
-        }
 
     }
     
@@ -96,3 +115,9 @@ function Draw() {
 
     }
 };
+
+
+function DrawnGuess() {
+    var drawCanvas = document.getElementById("draw");
+    var submitDraw = document.getElementById("sendDrawing");
+}
