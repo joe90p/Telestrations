@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 
@@ -35,6 +36,12 @@ namespace SRTelestrations
         {
             var playerId = Context.ConnectionId;
             GameManager.AddItemForPlayer(guess, playerId);
+        }
+
+        public override Task OnDisconnected()
+        {
+            //TODO: remove player from game
+            return base.OnDisconnected();
         }
 
     }
@@ -181,19 +188,18 @@ namespace SRTelestrations
         public void DistributeGuesses(IHubContext context)
         {
             int counter = 0;
+            var stuff = new [] {"Clown", "Fish", "Heavy Metal", "The Batmobile"};
             foreach(var player in PlayerItems)
             {
                 var adjacentPlayerIndex = (counter + (numberOfPlayers - 1)) % numberOfPlayers;
                 var adjacentPlayer = PlayerItems.ElementAt(adjacentPlayerIndex);
-                var valueToPass = adjacentPlayer.Value.LastOrDefault();
-                context.Clients.Client(player.Key).roundChange(valueToPass, Round % 2 == 0);
+                var valueToPass = Round==1 ? stuff[counter] : adjacentPlayer.Value.LastOrDefault();
+                context.Clients.Client(player.Key).roundChange(valueToPass, Round % 2 == 1);
                 counter++;
             }
             
             
         }
-
-
     }
 
     public enum GameState

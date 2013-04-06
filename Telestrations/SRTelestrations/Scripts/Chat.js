@@ -22,7 +22,6 @@ function Draw() {
     var register;
     var testLoader;
     var playArea;
-    //var isDrawnGuess;
 
     Initialise();
     
@@ -64,9 +63,7 @@ function Draw() {
         // Add the message to the page. 
         $('#discussion').append('<li><strong>' + encodedName
             + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
-    }  
-    
-    
+    }     
     
     function onResponseChange(fn, toGuess) {
         return function (evt) {
@@ -87,10 +84,10 @@ function Draw() {
     }
     
     function registerMe() {
+        console.log("registering");
         drawHub.server.register();
     }
     
-
     function DrawnGuess(toGuess) {
         var drawCanvas = document.getElementById("draw");
         var submitDraw = document.getElementById("sendDrawing");

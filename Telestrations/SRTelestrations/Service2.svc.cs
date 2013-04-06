@@ -61,7 +61,5 @@ namespace SRTelestrations
         {
             return DateTime.Now.ToString().Replace("/", "-").Replace(" ", "- ").Replace(":", "") + ".png"; 
         }
-
-        // Add more operations here and mark them with [OperationContract]
     }
 }
