@@ -10,6 +10,7 @@ using System.Text;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Web.Routing;
+using System.Reflection;
 
 namespace SRTelestrations
 {
@@ -34,7 +35,13 @@ namespace SRTelestrations
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         private string UploadImage(string image, string id)
         {
-            var fileNameWitPath = "C:\\" + this.GetImageName();
+            var imagesFolder = "C:\\Phil\\Telestrations\\Telestrations\\SRTelestrations\\Images";
+            var fileName = this.GetImageName();
+            if (!Directory.Exists(imagesFolder))
+            {
+                Directory.CreateDirectory(imagesFolder);
+            }
+            var fileNameWitPath = imagesFolder + "\\" + this.GetImageName();
             using (var fs = new FileStream(fileNameWitPath, FileMode.Create))
             {
                 using (var bw = new BinaryWriter(fs))
@@ -45,7 +52,7 @@ namespace SRTelestrations
                 }
             }
             var context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
-            ChatHub.GameManager.AddItemForPlayer(this.GetImageName(), id);
+            ChatHub.GameManager.AddItemForPlayer(fileName, id);
             return "great";
 
         }

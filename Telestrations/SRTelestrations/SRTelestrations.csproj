@@ -97,7 +97,9 @@
     <Content Include="Service1.svc" />
     <Content Include="Service2.svc" />
     <Content Include="Style\Chat.css" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatHub.cs" />

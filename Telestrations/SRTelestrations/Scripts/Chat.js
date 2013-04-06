@@ -115,8 +115,6 @@ function Draw() {
                 url: "Service2.svc/UploadImage",
                 data: '{ "image" : "' + im + '", "id" : "' + drawHub.connection.id + '" }',
                 contentType: 'application/json; charset=utf-8',
-                //success: success,
-                //error: fail
             });
 
         }
@@ -152,12 +150,26 @@ function Draw() {
     
     function WrittenGuess(toGuess) {
         var label = document.getElementById("testSpan");
-        $('writtenGuess').val(toGuess);
+        var textGuess = document.getElementById("sendTextGuess");
+        var writtenGuess = document.getElementById("writtenGuess");
+        var imageHolder = document.getElementById("imageContainer");
+        if (toGuess !== null)
+            {
+        imageHolder.src = "Images/" + toGuess;
+        writtenGuess.value = toGuess;
         label.innerHTML = toGuess;
+        }
+
+
+        textGuess.addEventListener('click', submitTextGuess);
+        
+        function submitTextGuess() {
+            var guess = writtenGuess.value;
+            drawHub.server.addWriitenGuess(guess);
+        }
 
     }
-
-    
+ 
 };
 
 

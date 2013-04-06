@@ -12,7 +12,6 @@ namespace SRTelestrations
     {
         public static GameManager GameManager = new GameManager();
 
-
         public void Send(string name, string message)
         {
             Clients.All.broadcastMessage(name, message);
@@ -20,7 +19,7 @@ namespace SRTelestrations
 
         public void Register()
         {
-            string playerId = Context.ConnectionId;
+            var playerId = Context.ConnectionId;
             if (GameManager.IsPLayerRegisteredWithGame(playerId))
             {
                 Clients.Caller.broadcastMessage("Server", "You are already registered.");
@@ -32,6 +31,11 @@ namespace SRTelestrations
             }
         }
 
+        public void AddWriitenGuess(string guess)
+        {
+            var playerId = Context.ConnectionId;
+            GameManager.AddItemForPlayer(guess, playerId);
+        }
 
     }
 
@@ -162,7 +166,7 @@ namespace SRTelestrations
                 {
                     Round++;
                     context.Clients.All.broadcastMessage("Server", String.Format("All entries submitted for this round. Moving onto round {0}", Round));
-                    //context.Clients.All.roundChange(Round%2==0, )
+                    this.DistributeGuesses(context);
                 }
                 else
                 {
@@ -181,8 +185,8 @@ namespace SRTelestrations
             {
                 var adjacentPlayerIndex = (counter + (numberOfPlayers - 1)) % numberOfPlayers;
                 var adjacentPlayer = PlayerItems.ElementAt(adjacentPlayerIndex);
-                //var player = PlayerItems.ElementAt(counter);
-                context.Clients.Client(player.Key).roundChange(adjacentPlayer.Key, Round % 2 == 0);
+                var valueToPass = adjacentPlayer.Value.LastOrDefault();
+                context.Clients.Client(player.Key).roundChange(valueToPass, Round % 2 == 0);
                 counter++;
             }
             
