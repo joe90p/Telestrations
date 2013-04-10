@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="ChainList_Test.cs" />
     <Compile Include="Chain_Test.cs" />
+    <Compile Include="Game_Test.cs" />
     <Compile Include="Guess_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

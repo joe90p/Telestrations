@@ -42,10 +42,13 @@
     <Compile Include="Chain.cs" />
     <Compile Include="ChainList.cs" />
     <Compile Include="Exceptions\ChainLockedException.cs" />
+    <Compile Include="Exceptions\PlayerAlreadyExistsException.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Guess.cs" />
     <Compile Include="Helpers\Maybe.cs" />
     <Compile Include="Interfaces\IChain.cs" />
     <Compile Include="Interfaces\IChainList.cs" />
+    <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGuess.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Player.cs" />

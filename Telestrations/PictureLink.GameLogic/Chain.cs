@@ -42,17 +42,17 @@ namespace PictureLink.GameLogic
 
         public bool IsAvailableForPlayer(IPlayer player)
         {
-            return LockedBy==null && !HasPlayerContribuedGuess(player);
+            return LockedBy==null && !HasPlayerContributedGuess(player);
         }
 
-        public bool HasPlayerContribuedGuess(IPlayer player)
+        public bool HasPlayerContributedGuess(IPlayer player)
         {
             return this.Guesses.Any(g => g.IsPlayerContributor(player));
         }
 
         public void AddGuess(IGuess guess)
         {
-            if (HasPlayerContribuedGuess(guess.Contributor))
+            if (HasPlayerContributedGuess(guess.Contributor))
             {
                 string message = String.Format(
                     "Player with id {0} has already contributed a guess to the chain", Maybe.From(guess.Contributor).

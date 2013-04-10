@@ -12,13 +12,13 @@ namespace PictureLink.GameLogic.Test
         [TestMethod]
         public void HasPlayerContribuedGuess_PlayerIsContributorToGuessInChain_ReturnsFalse()
         {
-            HasPlayerContribuedGuess_PlayerContributorInGuessInChainHelper(new[] { false, true }, false);
+            HasPlayerContribuedGuess_PlayerContributorInGuessInChainHelper(new[] { false, true }, true);
         }
 
         [TestMethod]
         public void HasPlayerContribuedGuess_PlayerIsNotContributorToGuessInChain_ReturnsTrue()
         {
-            HasPlayerContribuedGuess_PlayerContributorInGuessInChainHelper(new[] { false, false }, true);
+            HasPlayerContribuedGuess_PlayerContributorInGuessInChainHelper(new[] { false, false }, false);
         }
 
         [TestMethod]
@@ -155,7 +155,7 @@ namespace PictureLink.GameLogic.Test
                         chain.AddGuess(m);
                         return 0;
                     }).ToList();
-            bool result = chain.HasPlayerContribuedGuess(player.Object);
+            bool result = chain.HasPlayerContributedGuess(player.Object);
             Assert.IsTrue(isTrue ? result : !result);
         }
     }
