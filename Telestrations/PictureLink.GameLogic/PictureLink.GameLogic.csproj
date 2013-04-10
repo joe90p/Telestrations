@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Chain.cs" />
     <Compile Include="ChainList.cs" />
+    <Compile Include="Exceptions\ChainLockedException.cs" />
     <Compile Include="Guess.cs" />
     <Compile Include="Helpers\Maybe.cs" />
     <Compile Include="Interfaces\IChain.cs" />

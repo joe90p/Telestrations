@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Moq">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Moq.4.0.10827\NET40\Moq.dll</HintPath>
+      <HintPath>..\..\..\..\LocalSource\CSW Research\Source\Platypus2\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

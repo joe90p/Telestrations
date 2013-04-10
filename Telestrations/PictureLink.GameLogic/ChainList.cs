@@ -16,13 +16,6 @@ namespace PictureLink.GameLogic
                 LastOrDefault();
         }
 
-        public IGuess GetNextGuessForPlayer(IPlayer player)
-        {
-            return Maybe.From(this.GetLongestChainForPlayer(player))
-                .Select(c => c.Last())
-                .Value;
-        }
-
     }
 
     

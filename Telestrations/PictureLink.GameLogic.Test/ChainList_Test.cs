@@ -9,7 +9,7 @@ namespace PictureLink.GameLogic.Test
     public class ChainList_Test
     {
         [TestMethod]
-        public void GetLongestChainForPlayer_ReturnsChainWithHighestCount()
+        public void GetLongestChainForPlayer_Standard_ReturnsChainWithHighestCount()
         {
             const int highestLength = 3;
             Func<int, IChain> getChain = i => { var mock = new Mock<IChain>(); 
