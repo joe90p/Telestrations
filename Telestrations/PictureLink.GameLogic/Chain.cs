@@ -40,6 +40,11 @@ namespace PictureLink.GameLogic
             this.Guesses = new List<IGuess>();
         }
 
+        public Chain(IGuess guess)
+        {
+            this.Guesses = new List<IGuess>{guess};
+        }
+
         public bool IsAvailableForPlayer(IPlayer player)
         {
             return LockedBy==null && !HasPlayerContributedGuess(player);

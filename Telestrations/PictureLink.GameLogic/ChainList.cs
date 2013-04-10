@@ -16,6 +16,12 @@ namespace PictureLink.GameLogic
                 LastOrDefault();
         }
 
+        public void CreateNew(IGuess guess)
+        {
+            var chain = new Chain(guess);
+            this.Add(chain);
+        }
+
     }
 
     
