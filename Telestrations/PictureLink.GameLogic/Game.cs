@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PictureLink.GameLogic
 {
-    public class Game
+    public class Game : IGame
     {
         public Dictionary<IPlayer, Action<Guess>> PlayerPendingActions { get; internal set; }
         public ChainList Chains { get; private set; }
@@ -20,24 +20,33 @@ namespace PictureLink.GameLogic
             this.PlayerPendingActions.Add(player, null);
         }
 
-        public Action<Guess> GetPendingAction(IPlayer player)
+        public Action<Guess> GetPendingAction(IPlayer player, IChain chain)
+        {
+            if (chain == null)
+            {
+                return this.Chains.CreateNew;
+            }
+            else
+            {
+                chain.Lock(player);
+                return g => { chain.AddGuess(g); chain.Release(g.Contributor); };
+            }
+        }
+
+        public IPlaySession GetPlaySession(IPlayer player)
         {
             if (PlayerPendingActions[player] == null)
             {
                 var longChain = this.Chains.GetLongestChainForPlayer(player);
-                if (longChain == null)
-                {
-                    return this.Chains.CreateNew;
-                }
-                else
-                {
-                    longChain.Lock(player);
-                    return g => { longChain.AddGuess(g); longChain.Release(g.Contributor); };
-                }
+                var pendingAction = this.GetPendingAction(player, longChain);
+                PlayerPendingActions[player] = pendingAction;
+                return longChain == null ? new PlaySession(null, PlayType.NewGame) 
+                    : new PlaySession(longChain.Head, PlayType.Link);
             }
-            return g => { };
-            
-
+            else
+            {
+                throw new Exception();
+            }
         }
 
 

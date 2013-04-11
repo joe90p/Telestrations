@@ -51,7 +51,10 @@
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGuess.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
+    <Compile Include="Interfaces\IPlaySession.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PlaySession.cs" />
+    <Compile Include="PlayType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
