@@ -9,5 +9,6 @@ namespace PictureLink.GameLogic
     public interface IChainList
     {
         IChain GetLongestChainForPlayer(IPlayer player);
+        void CreateNew(IGuess guess);
     }
 }

@@ -8,7 +8,7 @@ namespace PictureLink.GameLogic
 {
     public interface IPlaySession
     {
-        public PlayType Type { get; }
-        public IGuess Guess { get; }
+        PlayType Type { get; }
+        IGuess Guess { get; }
     }
 }

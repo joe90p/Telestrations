@@ -8,8 +8,20 @@ namespace PictureLink.GameLogic
 {
     public class Game : IGame
     {
-        public Dictionary<IPlayer, Action<Guess>> PlayerPendingActions { get; internal set; }
-        public ChainList Chains { get; private set; }
+        private IDictionary<IPlayer, Action<IGuess>> playerPendingActions = new Dictionary<IPlayer, Action<IGuess>>();
+        public IDictionary<IPlayer, Action<IGuess>> PlayerPendingActions 
+        { 
+            get
+            {
+                if(this.playerPendingActions == null)
+                {
+                    this.playerPendingActions = new Dictionary<IPlayer, Action<IGuess>>();
+                }
+                return this.playerPendingActions;
+            }
+            internal set { this.playerPendingActions = value; }
+        }
+        public IChainList Chains { get; internal set; }
 
         public void AddPlayer(IPlayer player)
         {
@@ -20,7 +32,7 @@ namespace PictureLink.GameLogic
             this.PlayerPendingActions.Add(player, null);
         }
 
-        public Action<Guess> GetPendingAction(IPlayer player, IChain chain)
+        public Action<IGuess> GetPendingAction(IPlayer player, IChain chain)
         {
             if (chain == null)
             {
@@ -35,20 +47,11 @@ namespace PictureLink.GameLogic
 
         public IPlaySession GetPlaySession(IPlayer player)
         {
-            if (PlayerPendingActions[player] == null)
-            {
-                var longChain = this.Chains.GetLongestChainForPlayer(player);
-                var pendingAction = this.GetPendingAction(player, longChain);
-                PlayerPendingActions[player] = pendingAction;
-                return longChain == null ? new PlaySession(null, PlayType.NewGame) 
-                    : new PlaySession(longChain.Head, PlayType.Link);
-            }
-            else
-            {
-                throw new Exception();
-            }
+            var longChain = this.Chains.GetLongestChainForPlayer(player);
+            var pendingAction = this.GetPendingAction(player, longChain);
+            PlayerPendingActions[player] = pendingAction;
+            return longChain == null ? new PlaySession(null, PlayType.NewGame)
+                : new PlaySession(longChain.Head, PlayType.Link);
         }
-
-
     }
 }
