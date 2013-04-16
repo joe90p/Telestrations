@@ -15,7 +15,7 @@ namespace PictureLink.GameLogic.Test
         {
             var player = new Mock<IPlayer>();
             var game = new Game();
-            game.PlayerPendingActions = new Dictionary<IPlayer, Action<IGuess>> {{player.Object, null}};
+            game.PlayerPendingActions = new LoadableDictionary<IPlayer, Action<IGuess>> {{player.Object, null}};
             game.AddPlayer(player.Object);
         }
 
@@ -36,6 +36,7 @@ namespace PictureLink.GameLogic.Test
             var chains = new Mock<IChainList>();
             chains.Setup(cl => cl.GetLongestChainForPlayer(It.IsAny<IPlayer>())).Returns<IChain>(null);
             game.Chains = chains.Object;
+            game.PendingActionFactory = new Mock<IPendingActionFactory>().Object;
             game.AddPlayer(player.Object);
             var playSession = game.GetPlaySession(player.Object);
             Assert.IsTrue(playSession.Type==PlayType.NewGame);
@@ -50,10 +51,34 @@ namespace PictureLink.GameLogic.Test
             var chain = new Mock<IChain>();
             chains.Setup(cl => cl.GetLongestChainForPlayer(It.IsAny<IPlayer>())).Returns(chain.Object);
             game.Chains = chains.Object;
+            game.PendingActionFactory = new Mock<IPendingActionFactory>().Object;
             game.AddPlayer(player.Object);
             var playSession = game.GetPlaySession(player.Object);
             Assert.IsTrue(playSession.Type == PlayType.Link);
 
+        }
+
+        [TestMethod]
+        public void GetPlaySession_Standard_SetsPendingPlayerAction()
+        {
+            var player = new Mock<IPlayer>().Object;
+            var game = new Game();
+            var chains = new Mock<IChainList>();
+            var chain = new Mock<IChain>();
+            var actionFactory = new Mock<IPendingActionFactory>();
+            var playerPendingActions = new Mock<ILoadableDictionary<IPlayer, Action<IGuess>>>();
+            Action<IGuess> action = g => { };
+            actionFactory.Setup(af => af.GetPendingAction(It.IsAny<IPlayer>(),
+                                                            It.IsAny<IChain>())).Returns(action);
+            playerPendingActions.Setup(o => o.Load(It.Is<IPlayer>(p => p == player), It.Is<Action<IGuess>>(ag => ag == action))).Verifiable();
+
+            game.Chains = chains.Object;
+            game.PendingActionFactory = actionFactory.Object;
+            game.PlayerPendingActions = playerPendingActions.Object;
+            game.GetPlaySession(player);
+
+
+            playerPendingActions.Verify();
         }
     }
 }
