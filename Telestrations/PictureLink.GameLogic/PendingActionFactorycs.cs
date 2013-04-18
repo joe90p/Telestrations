@@ -10,36 +10,28 @@ namespace PictureLink.GameLogic
     {
         internal IChainList ChainList { get; private set; }
 
-        internal ILoadableDictionary<IPlayer, Action<IGuess>> PlayerPendingActions { get; private set; }
+        internal ILoadableDictionary<IPlayer, IPendingAction> PlayerPendingActions { get; private set; }
 
         public PendingActionFactory(IChainList chainList,
-                                        ILoadableDictionary<IPlayer, Action<IGuess>> pendingPlayerActions)
+                                        ILoadableDictionary<IPlayer, IPendingAction> pendingPlayerActions)
         {
             this.ChainList = chainList;
             this.PlayerPendingActions = pendingPlayerActions;
         }
-        
-        public Action<IGuess> GetPendingAction(
+
+        public IPendingAction GetPendingAction(
             IPlayer player,
             IChain chain)
         {
             if (chain == null)
             {
-                return g => 
-                { 
-                    this.ChainList.CreateNew(g);
-                    this.PlayerPendingActions.Load(g.Contributor, null);
-                };
+                return new NewChainPendingAction(this.ChainList, this.PlayerPendingActions);
             }
             else
             {
-                chain.Lock(player);
-                return g => 
-                { 
-                    chain.AddGuess(g); 
-                    chain.Release(g.Contributor);
-                    this.PlayerPendingActions.Load(g.Contributor, null);
-                };
+                return new ChainAppendPendingAction(this.PlayerPendingActions, 
+                                                        player, 
+                                                        chain);
             }
         }
     }

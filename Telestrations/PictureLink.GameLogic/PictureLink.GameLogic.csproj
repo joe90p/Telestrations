@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chain.cs" />
+    <Compile Include="ChainAppendPendingAction.cs" />
     <Compile Include="ChainList.cs" />
     <Compile Include="Exceptions\ChainLockedException.cs" />
     <Compile Include="Exceptions\PlayerAlreadyExistsException.cs" />
@@ -52,9 +53,11 @@
     <Compile Include="Interfaces\IChainList.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGuess.cs" />
+    <Compile Include="Interfaces\IPendingAction.cs" />
     <Compile Include="Interfaces\IPendingActionFactory.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IPlaySession.cs" />
+    <Compile Include="NewChainPendingAction.cs" />
     <Compile Include="PendingActionFactorycs.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlaySession.cs" />

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace PictureLink.GameLogic
 {
-    public interface IPendingActionFactory
+    public interface IPendingAction
     {
-        IPendingAction GetPendingAction(
-            IPlayer player,
-            IChain chain);
+        void Execute(IGuess guess);
+        void Release(IPlayer player);
     }
 }

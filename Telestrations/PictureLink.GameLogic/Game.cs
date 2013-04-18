@@ -8,9 +8,9 @@ namespace PictureLink.GameLogic
 {
     public class Game : IGame
     {
-        private ILoadableDictionary<IPlayer, Action<IGuess>> playerPendingActions = new LoadableDictionary<IPlayer, Action<IGuess>>();
+        private ILoadableDictionary<IPlayer, IPendingAction> playerPendingActions = new LoadableDictionary<IPlayer, IPendingAction>();
 
-        internal ILoadableDictionary<IPlayer, Action<IGuess>> PlayerPendingActions 
+        internal ILoadableDictionary<IPlayer, IPendingAction> PlayerPendingActions 
         {
             get
             {
@@ -46,6 +46,17 @@ namespace PictureLink.GameLogic
             PlayerPendingActions.Load(player, pendingAction);
             return longChain == null ? new PlaySession(null, PlayType.NewGame)
                 : new PlaySession(longChain.Head, PlayType.Link);
+        }
+
+        public void AddGuess(IGuess guess)
+        {
+            PlayerPendingActions[guess.Contributor].Execute(guess);
+        }
+
+        public void RemovePlayer(IPlayer player)
+        {
+            Maybe.From(PlayerPendingActions[player]).
+                Do(p => p.Release(player));
         }
     }
 }

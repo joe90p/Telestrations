@@ -15,7 +15,7 @@ namespace PictureLink.GameLogic.Test
         {
             var player = new Mock<IPlayer>();
             var game = new Game();
-            game.PlayerPendingActions = new LoadableDictionary<IPlayer, Action<IGuess>> {{player.Object, null}};
+            game.PlayerPendingActions = new LoadableDictionary<IPlayer, IPendingAction> {{player.Object, null}};
             game.AddPlayer(player.Object);
         }
 
@@ -66,11 +66,11 @@ namespace PictureLink.GameLogic.Test
             var chains = new Mock<IChainList>();
             var chain = new Mock<IChain>();
             var actionFactory = new Mock<IPendingActionFactory>();
-            var playerPendingActions = new Mock<ILoadableDictionary<IPlayer, Action<IGuess>>>();
-            Action<IGuess> action = g => { };
+            var playerPendingActions = new Mock<ILoadableDictionary<IPlayer, IPendingAction>>();
+            var pendingAction = new Mock<IPendingAction>();
             actionFactory.Setup(af => af.GetPendingAction(It.IsAny<IPlayer>(),
-                                                            It.IsAny<IChain>())).Returns(action);
-            playerPendingActions.Setup(o => o.Load(It.Is<IPlayer>(p => p == player), It.Is<Action<IGuess>>(ag => ag == action))).Verifiable();
+                                                            It.IsAny<IChain>())).Returns(pendingAction.Object);
+            playerPendingActions.Setup(o => o.Load(It.Is<IPlayer>(p => p == player), It.Is<IPendingAction>(p => p == pendingAction.Object))).Verifiable();
 
             game.Chains = chains.Object;
             game.PendingActionFactory = actionFactory.Object;

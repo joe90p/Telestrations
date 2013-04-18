@@ -35,5 +35,13 @@ namespace PictureLink.GameLogic
         {
             return new Maybe<TResult>((value == null) ? null : getter(value));
         }
+
+        public void Do(Action<T> doIt)
+        {
+            if(value == null)
+            {
+                doIt(value);
+            }
+        }
     }
 }
