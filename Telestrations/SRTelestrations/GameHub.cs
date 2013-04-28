@@ -4,14 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using PictureLink.GameLogic;
 
-namespace SRTelestrations
+namespace PictureLink.Web
 {
-
-
-    public class ChatHub : Hub
+    public class GameHub : Hub
     {
-        public static GameManager GameManager = new GameManager();
+        public static Game GameManager = new Game();
 
         public void Send(string name, string message)
         {
@@ -21,33 +20,37 @@ namespace SRTelestrations
         public void Register()
         {
             var playerId = Context.ConnectionId;
-            if (GameManager.IsPLayerRegisteredWithGame(playerId))
+            var player = new Player(playerId);
+            if (GameManager.IsPlayerInGame(player))
             {
-                Clients.Caller.broadcastMessage("Server", "You are already registered.");
+                Clients.Caller.broadcastMessage("GameHub", "You are already registered.");
             }
             else
             {
-                string gamename = GameManager.AddPlayerToAvailableGame(playerId);
-                Clients.Caller.broadcastMessage("Server", "You registered with game " + gamename);
+                GameManager.AddPlayer(player);
+                Clients.Caller.broadcastMessage("GameHub", "You successfully registered.");
             }
         }
 
         public void AddWriitenGuess(string guess)
         {
             var playerId = Context.ConnectionId;
-            GameManager.AddItemForPlayer(guess, playerId);
+            var player = new Player(playerId);
+            var guessObj = new Guess(player);
+            GameManager.AddGuess(guessObj);
         }
 
         public override Task OnDisconnected()
         {
-            //TODO: remove player from game
+            //var playerId = Context.ConnectionId;
+            //var player = new Player(playerId);
+            //GameManager.RemovePlayer(player);
             return base.OnDisconnected();
         }
 
     }
 
-
-    public class GameManager
+    /*public class GameManager
     {
         public List<Game> games = new List<Game>();
         public static int gameId = 0;
@@ -85,7 +88,7 @@ namespace SRTelestrations
             }
             else
             {
-                var context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+                var context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
                 context.Clients.Client(playerId).broadcastMessage("Server", "You are either not registered or the game is not in play.");
             }
         }
@@ -119,7 +122,7 @@ namespace SRTelestrations
 
         public void Register(string playerId)
         {
-            var context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+            var context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
             
             var addGroupTask = context.Groups.Add(playerId, this.Name);
 
@@ -159,7 +162,7 @@ namespace SRTelestrations
         public void AddPlayerItem(string player, string item)
         {
             var items = PlayerItems[player];
-            var context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
+            var context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
             if(items.Count == Round)
             {
                 context.Clients.Client(player)
@@ -206,7 +209,7 @@ namespace SRTelestrations
     {
         Initializing,
         InPlay
-    }
+    }*/
 
 
 

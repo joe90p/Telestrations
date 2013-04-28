@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="SRTelestrations.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="PictureLink.Web.Global" Language="C#" %>

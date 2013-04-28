@@ -16,7 +16,7 @@ namespace PictureLink.GameLogic
             }
             else
             {
-                throw new Exception();
+                this.Add(key, value);
             }
         }
     }

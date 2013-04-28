@@ -24,6 +24,12 @@ namespace PictureLink.GameLogic
 
         public IChainList Chains { get; internal set; }
 
+        public Game()
+        {
+            this.Chains = new ChainList();
+            this.PendingActionFactory = new PendingActionFactory(this.Chains, this.PlayerPendingActions);
+        }
+
         public IPendingActionFactory PendingActionFactory
         {
             get;
@@ -32,11 +38,16 @@ namespace PictureLink.GameLogic
 
         public void AddPlayer(IPlayer player)
         {
-            if (this.PlayerPendingActions.Keys.Contains(player))
+            if (this.IsPlayerInGame(player))
             {
                 throw new PlayerAlreadyExistsException();
             }
             this.PlayerPendingActions.Add(player, null);
+        }
+
+        public bool IsPlayerInGame(IPlayer player)
+        {
+            return this.PlayerPendingActions.Keys.Contains(player);
         }
 
         public IPlaySession GetPlaySession(IPlayer player)

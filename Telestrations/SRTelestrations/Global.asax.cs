@@ -7,7 +7,7 @@ using System.Web.SessionState;
 using System.Web.Routing;
 using Microsoft.AspNet.SignalR;
 
-namespace SRTelestrations
+namespace PictureLink.Web
 {
     public class Global : System.Web.HttpApplication
     {

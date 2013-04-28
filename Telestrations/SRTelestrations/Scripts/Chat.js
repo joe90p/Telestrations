@@ -22,30 +22,27 @@ function Draw() {
     var register;
     var testLoader;
     var playArea;
+    var getGuess;
 
     Initialise();
     
     function Initialise() {
 
         isDrawnGuess = true;
-        drawHub = $.connection.chatHub;
+        drawHub = $.connection.gameHub;
 
         register = document.getElementById("register");
         testLoader = document.getElementById("testLoader");
         playArea = document.getElementById("playArea");
-        
-        
+        getGuess = document.getElementById("getGuess");       
         
         $.connection.hub.start().done(function () {
             register.addEventListener('click', registerMe);
+            getGuess.addEventListener('click', requestGuess);
         });
-        //testLoader.addEventListener("click", testLoad);
 
         drawHub.client.broadcastMessage = broadcast;
         drawHub.client.roundChange = roundChange;
-        
-
-
     }
     
     function roundChange(toGuess, isDrawnGuess) {
@@ -87,6 +84,23 @@ function Draw() {
         console.log("registering");
         drawHub.server.register();
     }
+
+    function requestGuess() {
+        //var x = drawHub.server.getPlaySession();
+
+        $.ajax({
+            type: "GET",
+            url: "PictureService.svc/GetPlaySession",
+            data: '{ "id" : "' + drawHub.connection.id + '" }',
+            contentType: 'application/json; charset=utf-8',
+            success: function (txt) {
+                
+            },
+            error: function () {
+                window.location("ERRoR");
+            }
+        });
+    }
     
     function DrawnGuess(toGuess) {
         var drawCanvas = document.getElementById("draw");
@@ -109,9 +123,9 @@ function Draw() {
 
             $.ajax({
                 type: "POST",
-                url: "Service2.svc/UploadImage",
+                url: "PictureService.svc/UploadImage",
                 data: '{ "image" : "' + im + '", "id" : "' + drawHub.connection.id + '" }',
-                contentType: 'application/json; charset=utf-8',
+                contentType: 'application/json; charset=utf-8'
             });
 
         }

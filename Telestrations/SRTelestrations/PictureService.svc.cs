@@ -11,29 +11,17 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using System.Web.Routing;
 using System.Reflection;
+using PictureLink.GameLogic;
 
-namespace SRTelestrations
+namespace PictureLink.Web
 {
     [ServiceContract(Namespace = "")]
     [AspNetCompatibilityRequirements(RequirementsMode = AspNetCompatibilityRequirementsMode.Allowed)]
-    public class Service2
+    public class PictureService
     {
-        // To use HTTP GET, add [WebGet] attribute. (Default ResponseFormat is WebMessageFormat.Json)
-        // To create an operation that returns XML,
-        //     add [WebGet(ResponseFormat=WebMessageFormat.Xml)],
-        //     and include the following line in the operation body:
-        //         WebOperationContext.Current.OutgoingResponse.ContentType = "text/xml";
-        [OperationContract]
-        public void DoWork()
-        {
-            // Add your operation implementation here
-            return;
-        }
-
-
         [OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest)]
-        private string UploadImage(string image, string id)
+        public string UploadImage(string image, string id)
         {
             var imagesFolder = "C:\\Phil\\Telestrations\\Telestrations\\SRTelestrations\\Images";
             var fileName = this.GetImageName();
@@ -51,10 +39,21 @@ namespace SRTelestrations
                     bw.Close();
                 }
             }
-            var context = GlobalHost.ConnectionManager.GetHubContext<ChatHub>();
-            ChatHub.GameManager.AddItemForPlayer(fileName, id);
+            var context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
+            var player = new Player(id);
+            var guess = new Guess(player, fileName);
+            GameHub.GameManager.AddGuess(guess);
             return "great";
 
+        }
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", BodyStyle = WebMessageBodyStyle.WrappedRequest)]
+        public IPlaySession GetPlaySession(string id)
+        {
+            var player = new Player(id);
+            var session = GameHub.GameManager.GetPlaySession(player);
+            return session;
         }
 
         private string GetImageName()

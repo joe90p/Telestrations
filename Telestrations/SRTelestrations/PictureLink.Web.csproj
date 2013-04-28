@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SRTelestrations</RootNamespace>
-    <AssemblyName>SRTelestrations</AssemblyName>
+    <RootNamespace>PictureLink.Web</RootNamespace>
+    <AssemblyName>PictureLink.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DrawnGuess.html" />
-    <Content Include="test.txt" />
+    <Content Include="PictureService.svc" />
     <Content Include="WrittenGuess.html" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Global.asax" />
@@ -94,26 +94,20 @@
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery.signalR-1.0.0.js" />
     <Content Include="Scripts\jquery.signalR-1.0.0.min.js" />
-    <Content Include="Service1.svc" />
-    <Content Include="Service2.svc" />
     <Content Include="Style\Chat.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatHub.cs" />
+    <Compile Include="GameHub.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="IService1.cs" />
+    <Compile Include="PictureService.svc.cs">
+      <DependentUpon>PictureService.svc</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service1.svc.cs">
-      <DependentUpon>Service1.svc</DependentUpon>
-    </Compile>
-    <Compile Include="Service2.svc.cs">
-      <DependentUpon>Service2.svc</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -126,6 +120,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PictureLink.GameLogic\PictureLink.GameLogic.csproj">
+      <Project>{26901e26-21fc-4c1b-b837-cf373b50015a}</Project>
+      <Name>PictureLink.GameLogic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

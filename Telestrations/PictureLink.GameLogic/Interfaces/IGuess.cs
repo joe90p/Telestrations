@@ -9,6 +9,7 @@ namespace PictureLink.GameLogic
     public interface IGuess
     {
         IPlayer Contributor { get; }
+        string Content { get; set; }
         bool IsPlayerContributor(IPlayer otherPlayer);
     }
 }

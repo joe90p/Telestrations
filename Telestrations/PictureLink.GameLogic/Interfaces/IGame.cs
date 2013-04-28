@@ -8,5 +8,12 @@ namespace PictureLink.GameLogic
 {
     public interface IGame
     {
+        IChainList Chains { get;}
+        IPendingActionFactory PendingActionFactory{ get;}
+        void AddPlayer(IPlayer player);
+        IPlaySession GetPlaySession(IPlayer player);
+        void AddGuess(IGuess guess);
+        void RemovePlayer(IPlayer player);
+        bool IsPlayerInGame(IPlayer player);
     }
 }
