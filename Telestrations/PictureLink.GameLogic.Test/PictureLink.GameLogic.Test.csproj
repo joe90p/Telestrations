@@ -60,6 +60,7 @@
     <Compile Include="Guess_Test.cs" />
     <Compile Include="NewChainPendingAction_Test.cs" />
     <Compile Include="PendingActionFactory_Test.cs" />
+    <Compile Include="PlaySession_Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

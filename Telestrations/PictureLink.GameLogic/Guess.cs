@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PictureLink.GameLogic
+﻿namespace PictureLink.GameLogic
 {
     public class Guess : IGuess
     {
@@ -12,15 +6,22 @@ namespace PictureLink.GameLogic
 
         public string Content { get; set; }
 
+        public GuessType Type
+        {
+            get; 
+            internal set; 
+        }
+
         public Guess(IPlayer player)
         {
             this.Contributor = player;
         }
 
-        public Guess(IPlayer player, string content)
+        public Guess(IPlayer player, string content, GuessType guessType)
         {
             this.Contributor = player;
             this.Content = content;
+            this.Type = guessType;
         }
 
         public bool IsPlayerContributor(IPlayer otherPlayer)
@@ -28,6 +29,14 @@ namespace PictureLink.GameLogic
             return this.Contributor.Id == otherPlayer.Id;
         }
 
+        public GuessType GetNextGuessType()
+        {
+            return GetOtherGuessType(this.Type);
+        }
 
+        public static GuessType GetOtherGuessType(GuessType guessType)
+        {
+            return guessType == GuessType.Drawn ? GuessType.Written : GuessType.Drawn;
+        }
     }
 }

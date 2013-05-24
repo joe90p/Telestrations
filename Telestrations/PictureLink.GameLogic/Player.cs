@@ -26,9 +26,10 @@ namespace PictureLink.GameLogic
 
         public override bool Equals(object obj)
         {
-            if (obj is IPlayer)
+            var player = obj as IPlayer;
+            if (player != null)
             {
-                return ((IPlayer)obj).Id == this.Id;
+                return player.Id == this.Id;
             }
             else
             {

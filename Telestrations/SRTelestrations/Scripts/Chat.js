@@ -86,18 +86,17 @@ function Draw() {
     }
 
     function requestGuess() {
-        //var x = drawHub.server.getPlaySession();
-
+        var x = { id: 'blah' };
+        
         $.ajax({
             type: "GET",
-            url: "PictureService.svc/GetPlaySession",
-            data: '{ "id" : "' + drawHub.connection.id + '" }',
+            url: "PictureLinkGameService.svc/GetPlaySession?id=" + drawHub.connection.id,
             contentType: 'application/json; charset=utf-8',
             success: function (txt) {
-                
+                alert('success ' + txt.d.Thingy);
             },
-            error: function () {
-                window.location("ERRoR");
+            error: function (txt) {
+                alert('error ' + txt.status + ' ' + txt.statusText);
             }
         });
     }
@@ -153,8 +152,6 @@ function Draw() {
                 canvasCtx.fillStyle = "#000000";
                 canvasCtx.fillRect(point.x, point.y, 3, 3);
             }
-
-
         }
 
     }

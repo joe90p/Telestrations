@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PictureLink.GameLogic
+﻿namespace PictureLink.GameLogic
 {
     public class PlaySession : IPlaySession
     {
@@ -14,16 +8,31 @@ namespace PictureLink.GameLogic
             private set;
         }
 
-        public IGuess Guess
+        public IGuess PreviousGuess
+        {
+            get;
+            internal set;
+        }
+
+        public GuessType GuessType
         {
             get;
             private set;
         }
 
-        public PlaySession(IGuess guess, PlayType type)
+        public PlaySession()
         {
-            this.Guess = guess;
-            this.Type = type;
+        }
+
+        public PlaySession(IGuess previousGuess, PlayType type)
+        {
+            this.PreviousGuess = previousGuess;
+            this.Type = type;           
+        }
+
+        public void SetGuessType()
+        {
+            this.GuessType = this.PreviousGuess == null ? GuessType.Written : this.PreviousGuess.GetNextGuessType();
         }
     }
 }

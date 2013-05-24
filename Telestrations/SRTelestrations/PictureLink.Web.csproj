@@ -84,7 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DrawnGuess.html" />
-    <Content Include="PictureService.svc" />
+    <Content Include="PictureLinkGameService.svc" />
     <Content Include="WrittenGuess.html" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Global.asax" />
@@ -104,8 +104,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="PictureService.svc.cs">
-      <DependentUpon>PictureService.svc</DependentUpon>
+    <Compile Include="PictureLinkGameService.svc.cs">
+      <DependentUpon>PictureLinkGameService.svc</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

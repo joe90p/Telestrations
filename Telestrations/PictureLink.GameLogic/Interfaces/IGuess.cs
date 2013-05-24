@@ -11,5 +11,7 @@ namespace PictureLink.GameLogic
         IPlayer Contributor { get; }
         string Content { get; set; }
         bool IsPlayerContributor(IPlayer otherPlayer);
+        GuessType Type { get; }
+        GuessType GetNextGuessType();
     }
 }

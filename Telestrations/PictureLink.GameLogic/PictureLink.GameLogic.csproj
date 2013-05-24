@@ -60,6 +60,7 @@
     <Compile Include="NewChainPendingAction.cs" />
     <Compile Include="PendingActionFactorycs.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="PlayGuess.cs" />
     <Compile Include="PlaySession.cs" />
     <Compile Include="PlayType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

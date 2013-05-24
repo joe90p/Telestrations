@@ -55,8 +55,15 @@ namespace PictureLink.GameLogic
             var longChain = this.Chains.GetLongestChainForPlayer(player);
             var pendingAction = this.PendingActionFactory.GetPendingAction(player, longChain);
             PlayerPendingActions.Load(player, pendingAction);
-            return longChain == null ? new PlaySession(null, PlayType.NewGame)
-                : new PlaySession(longChain.Head, PlayType.Link);
+            if(longChain == null)
+            {
+                return new PlaySession(null, PlayType.NewGame);
+            }
+            else
+            {
+                var previousGuess = longChain.Head;
+                return new PlaySession(previousGuess, PlayType.Link);
+            }
         }
 
         public void AddGuess(IGuess guess)

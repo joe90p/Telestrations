@@ -27,5 +27,19 @@ namespace PictureLink.GameLogic.Test
             var guess = new Guess(contributor.Object);
             Assert.IsFalse(guess.IsPlayerContributor(otherPlayer.Object));
         }
+
+        [TestMethod]
+        public void GetOtherGuessType_WrittenReturnsDrawn()
+        {
+            var guess = Guess.GetOtherGuessType(GuessType.Written);
+            Assert.IsTrue(guess == GuessType.Drawn);
+        }
+
+        [TestMethod]
+        public void GetOtherGuessType_DrawnReturnsWritten()
+        {
+            var guess = Guess.GetOtherGuessType(GuessType.Drawn);
+            Assert.IsTrue(guess == GuessType.Written);
+        }
     }
 }
