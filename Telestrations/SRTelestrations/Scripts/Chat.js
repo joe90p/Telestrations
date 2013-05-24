@@ -92,8 +92,15 @@ function Draw() {
             type: "GET",
             url: "PictureLinkGameService.svc/GetPlaySession?id=" + drawHub.connection.id,
             contentType: 'application/json; charset=utf-8',
-            success: function (txt) {
-                alert('success ' + txt.d.Thingy);
+            success: function (response) {
+                var data = response.d;
+                
+                if (data.GuessType === 'W') {
+                    WrittenGuess(data.PreviousGuess);
+                }
+                if (data.GuessType === 'D') {
+                    DrawnGuess(data.PreviousGuess);
+                }
             },
             error: function (txt) {
                 alert('error ' + txt.status + ' ' + txt.statusText);
