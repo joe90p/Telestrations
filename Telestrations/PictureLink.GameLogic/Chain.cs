@@ -64,7 +64,7 @@ namespace PictureLink.GameLogic
                                                                                             Select(c => c.Id));
                 throw new ChainLockedException(message);
             }
-            if(guess.Contributor!=this.LockedBy)
+            if(guess.Contributor.Id!=this.LockedBy.Id)
             {
                 throw new ChainLockedException(GetLockedMessage());
             }
@@ -100,7 +100,7 @@ namespace PictureLink.GameLogic
 
         public void Release(IPlayer player)
         {
-            if (this.LockedBy != player)
+            if (this.LockedBy.Id != player.Id)
             {
                 throw new ChainLockedException(this.GetLockedMessage());
             }

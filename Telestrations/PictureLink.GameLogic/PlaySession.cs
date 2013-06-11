@@ -27,7 +27,8 @@
         public PlaySession(IGuess previousGuess, PlayType type)
         {
             this.PreviousGuess = previousGuess;
-            this.Type = type;           
+            this.Type = type;
+            this.SetGuessType();
         }
 
         public void SetGuessType()

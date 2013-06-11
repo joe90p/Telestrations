@@ -32,7 +32,7 @@ namespace PictureLink.Web
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         public string UploadImage(string image, string id)
         {
-            var imagesFolder = "C:\\Phil\\Telestrations\\Telestrations\\SRTelestrations\\Images";
+            var imagesFolder = "C:\\Phil\\GitHub\\Telestrations\\Telestrations\\SRTelestrations\\Images";
             var fileName = this.GetImageName();
             if (!Directory.Exists(imagesFolder))
             {

@@ -45,11 +45,12 @@ function Draw() {
         drawHub.client.roundChange = roundChange;
     }
     
-    function roundChange(toGuess, isDrawnGuess) {
+    function roundChange(toGuess, isDrawnGuess, isNewGame) {
         xhr = new XMLHttpRequest();
         var url = isDrawnGuess ? "DrawnGuess.html" : "WrittenGuess.html";
         xhr.open("GET", url, true);
-        xhr.onreadystatechange = isDrawnGuess ? onResponseChange(DrawnGuess, toGuess) : onResponseChange(WrittenGuess, toGuess);
+        var writtenFn = function (g) { return WrittenGuess(g, isNewGame) };
+        xhr.onreadystatechange = isDrawnGuess ? onResponseChange(DrawnGuess, toGuess) : onResponseChange(writtenFn, toGuess);
         xhr.send();
     }
     
@@ -94,13 +95,7 @@ function Draw() {
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
                 var data = response.d;
-                
-                if (data.GuessType === 'W') {
-                    WrittenGuess(data.PreviousGuess);
-                }
-                if (data.GuessType === 'D') {
-                    DrawnGuess(data.PreviousGuess);
-                }
+                roundChange(data.PreviousGuess, data.GuessType === 'D', data.PlayType === 'N');
             },
             error: function (txt) {
                 alert('error ' + txt.status + ' ' + txt.statusText);
@@ -129,7 +124,7 @@ function Draw() {
 
             $.ajax({
                 type: "POST",
-                url: "PictureService.svc/UploadImage",
+                url: "PictureLinkGameService.svc/UploadImage",
                 data: '{ "image" : "' + im + '", "id" : "' + drawHub.connection.id + '" }',
                 contentType: 'application/json; charset=utf-8'
             });
@@ -163,16 +158,20 @@ function Draw() {
 
     }
     
-    function WrittenGuess(toGuess) {
+    function WrittenGuess(toGuess, isNewGame) {
         var label = document.getElementById("testSpan");
         var textGuess = document.getElementById("sendTextGuess");
         var writtenGuess = document.getElementById("writtenGuess");
         var imageHolder = document.getElementById("imageContainer");
-        if (toGuess !== null)
+        if (toGuess !== null && isNewGame !== true)
             {
         imageHolder.src = "Images/" + toGuess;
         writtenGuess.value = toGuess;
         label.innerHTML = toGuess;
+        }
+
+        if (isNewGame) {
+            label.innerHTML = "New Game";
         }
 
 

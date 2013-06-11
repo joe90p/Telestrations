@@ -36,7 +36,7 @@ namespace PictureLink.Web
         {
             var playerId = Context.ConnectionId;
             var player = new Player(playerId);
-            var guessObj = new Guess(player);
+            var guessObj = new Guess(player,guess, GuessType.Written);
             GameManager.AddGuess(guessObj);
         }
 
