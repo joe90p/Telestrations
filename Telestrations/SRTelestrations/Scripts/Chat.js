@@ -71,6 +71,7 @@ function Draw() {
             case XMLHttpRequest.DONE:
             case 4:
                 var hasResponse = req.status === 200 || req.status === 0;
+                $(playArea).show();
                 playArea.innerHTML = hasResponse ? req.responseText : "<h1>Unable to load text file: status=" + req.status + "</h1>";
                 if (hasResponse) {
                     fn(toGuess);
@@ -99,7 +100,8 @@ function Draw() {
             },
             error: function (txt) {
                 alert('error ' + txt.status + ' ' + txt.statusText);
-            }
+            },
+            cache: false
         });
     }
     
@@ -128,6 +130,8 @@ function Draw() {
                 data: '{ "image" : "' + im + '", "id" : "' + drawHub.connection.id + '" }',
                 contentType: 'application/json; charset=utf-8'
             });
+
+            $(playArea).hide();
 
         }
 
@@ -180,6 +184,7 @@ function Draw() {
         function submitTextGuess() {
             var guess = writtenGuess.value;
             drawHub.server.addWriitenGuess(guess);
+            $(playArea).hide();
         }
 
     }
