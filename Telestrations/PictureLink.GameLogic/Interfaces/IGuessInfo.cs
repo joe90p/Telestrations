@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace PictureLink.GameLogic
 {
-    public interface IChainList
+    public interface IGuessInfo
     {
-        IChain GetLongestChainForPlayer(IPlayer player);
-        void CreateNew(IGuessInfo guess);
+        string Content {get;}
+        IPlayer Contributor { get; }
+        GuessType Type { get; }
     }
 }

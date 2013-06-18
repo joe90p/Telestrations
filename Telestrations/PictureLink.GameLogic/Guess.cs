@@ -6,6 +6,8 @@
 
         public string Content { get; set; }
 
+        public IChain ParentChain {  get; set; }
+
         public GuessType Type
         {
             get; 
@@ -17,11 +19,12 @@
             this.Contributor = player;
         }
 
-        public Guess(IPlayer player, string content, GuessType guessType)
+        public Guess(IGuessInfo guessInfo, IChain parentChain)
         {
-            this.Contributor = player;
-            this.Content = content;
-            this.Type = guessType;
+            this.Contributor = guessInfo.Contributor;
+            this.Content = guessInfo.Content;
+            this.Type = guessInfo.Type;
+            this.ParentChain = parentChain;
         }
 
         public bool IsPlayerContributor(IPlayer otherPlayer)

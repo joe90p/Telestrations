@@ -66,7 +66,7 @@ namespace PictureLink.GameLogic
             }
         }
 
-        public void AddGuess(IGuess guess)
+        public void AddGuess(IGuessInfo guess)
         {
             PlayerPendingActions[guess.Contributor].Execute(guess);
         }

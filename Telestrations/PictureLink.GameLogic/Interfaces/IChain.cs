@@ -9,7 +9,7 @@ namespace PictureLink.GameLogic
     public interface IChain
     {
         bool IsAvailableForPlayer(IPlayer player);
-        void AddGuess(IGuess guess);
+        void AddGuess(IGuessInfo guess);
         int Count { get; }
         IGuess Head { get; }
         void Lock(IPlayer player);

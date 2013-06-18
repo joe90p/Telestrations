@@ -50,7 +50,7 @@ namespace PictureLink.Web
             }
             var context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
             var player = new Player(id);
-            var guess = new Guess(player, fileName, GuessType.Drawn);
+            var guess = new GuessInfo(player, fileName, GuessType.Drawn);
             GameHub.GameManager.AddGuess(guess);
             return "great";
 

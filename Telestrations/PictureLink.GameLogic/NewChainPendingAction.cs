@@ -12,7 +12,7 @@ namespace PictureLink.GameLogic
         internal IChainList ChainList { get; set; }
 
 
-        public void Execute(IGuess guess)
+        public void Execute(IGuessInfo guess)
         {
             this.ChainList.CreateNew(guess);
             this.Release(guess.Contributor);

@@ -8,7 +8,7 @@ namespace PictureLink.GameLogic
 {
     public interface IPendingAction
     {
-        void Execute(IGuess guess);
+        void Execute(IGuessInfo guess);
         void Release(IPlayer player);
     }
 }

@@ -16,7 +16,7 @@ namespace PictureLink.GameLogic
 
         internal IChain Chain { get; set; }
 
-        public void Execute(IGuess guess)
+        public void Execute(IGuessInfo guess)
         {
             this.Chain.AddGuess(guess);
             this.Release(guess.Contributor);

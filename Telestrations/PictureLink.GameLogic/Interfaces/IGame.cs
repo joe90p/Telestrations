@@ -12,7 +12,7 @@ namespace PictureLink.GameLogic
         IPendingActionFactory PendingActionFactory{ get;}
         void AddPlayer(IPlayer player);
         IPlaySession GetPlaySession(IPlayer player);
-        void AddGuess(IGuess guess);
+        void AddGuess(IGuessInfo guess);
         void RemovePlayer(IPlayer player);
         bool IsPlayerInGame(IPlayer player);
     }

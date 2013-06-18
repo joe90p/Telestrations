@@ -46,6 +46,8 @@
     <Compile Include="Exceptions\PlayerAlreadyExistsException.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Guess.cs" />
+    <Compile Include="GuessFactory.cs" />
+    <Compile Include="GuessInfo.cs" />
     <Compile Include="Helpers\ILoadableDictionary.cs" />
     <Compile Include="Helpers\LoadableDictionary.cs" />
     <Compile Include="Helpers\Maybe.cs" />
@@ -53,6 +55,8 @@
     <Compile Include="Interfaces\IChainList.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGuess.cs" />
+    <Compile Include="Interfaces\IGuessFactory.cs" />
+    <Compile Include="Interfaces\IGuessInfo.cs" />
     <Compile Include="Interfaces\IPendingAction.cs" />
     <Compile Include="Interfaces\IPendingActionFactory.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />

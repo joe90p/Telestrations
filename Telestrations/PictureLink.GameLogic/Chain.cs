@@ -12,6 +12,8 @@ namespace PictureLink.GameLogic
 
         private const string LockedMessage = "This chain is locked to player with id {0}";
 
+        private IGuessFactory guessFactory;
+
         internal List<IGuess> Guesses
         {
             get;
@@ -37,12 +39,14 @@ namespace PictureLink.GameLogic
 
         public Chain()
         {
+            this.guessFactory = new GuessFactory(this);
             this.Guesses = new List<IGuess>();
         }
 
-        public Chain(IGuess guess)
+        public Chain(IGuessInfo guessInfo)
         {
-            this.Guesses = new List<IGuess>{guess};
+            this.guessFactory = new GuessFactory(this);
+            this.Guesses = new List<IGuess>{this.guessFactory.MakeGuess(guessInfo)};
         }
 
         public bool IsAvailableForPlayer(IPlayer player)
@@ -55,20 +59,20 @@ namespace PictureLink.GameLogic
             return this.Guesses.Any(g => g.IsPlayerContributor(player));
         }
 
-        public void AddGuess(IGuess guess)
+        public void AddGuess(IGuessInfo guessInfo)
         {
-            if (HasPlayerContributedGuess(guess.Contributor))
+            if (HasPlayerContributedGuess(guessInfo.Contributor))
             {
                 string message = String.Format(
-                    "Player with id {0} has already contributed a guess to the chain", Maybe.From(guess.Contributor).
+                    "Player with id {0} has already contributed a guess to the chain", Maybe.From(guessInfo.Contributor).
                                                                                             Select(c => c.Id));
                 throw new ChainLockedException(message);
             }
-            if(guess.Contributor.Id!=this.LockedBy.Id)
+            if (guessInfo.Contributor.Id != this.LockedBy.Id)
             {
                 throw new ChainLockedException(GetLockedMessage());
             }
-            this.Guesses.Add(guess);
+            this.Guesses.Add(this.guessFactory.MakeGuess(guessInfo));
             if (Guesses.Count == MaximumLength)
             {
                 this.OnMaximumChainLengthReached();
