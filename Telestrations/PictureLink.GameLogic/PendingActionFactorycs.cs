@@ -21,9 +21,9 @@ namespace PictureLink.GameLogic
 
         public IPendingAction GetPendingAction(
             IPlayer player,
-            IChain chain)
+            IInPlayChain inPlayChain)
         {
-            if (chain == null)
+            if (inPlayChain == null)
             {
                 return new NewChainPendingAction(this.ChainList, this.PlayerPendingActions);
             }
@@ -31,7 +31,7 @@ namespace PictureLink.GameLogic
             {
                 return new ChainAppendPendingAction(this.PlayerPendingActions, 
                                                         player, 
-                                                        chain);
+                                                        inPlayChain);
             }
         }
     }

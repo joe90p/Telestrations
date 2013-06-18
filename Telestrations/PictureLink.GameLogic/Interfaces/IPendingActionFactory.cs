@@ -10,6 +10,6 @@ namespace PictureLink.GameLogic
     {
         IPendingAction GetPendingAction(
             IPlayer player,
-            IChain chain);
+            IInPlayChain inPlayChain);
     }
 }

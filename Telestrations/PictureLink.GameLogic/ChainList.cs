@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace PictureLink.GameLogic
 {
-    public class ChainList : List<IChain>, IChainList
+    public class ChainList : List<IInPlayChain>, IChainList
     {
-        public IChain GetLongestChainForPlayer(IPlayer player)
+        public IInPlayChain GetLongestChainForPlayer(IPlayer player)
         {
             return this.
                 Where(c => c.IsAvailableForPlayer(player)).
@@ -18,7 +18,7 @@ namespace PictureLink.GameLogic
 
         public void CreateNew(IGuessInfo guess)
         {
-            var chain = new Chain(guess);
+            var chain = new InPlayChain(guess);
             this.Add(chain);
         }
 

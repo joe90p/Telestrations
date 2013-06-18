@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PictureLink.Data;
 
 namespace PictureLink.GameLogic
 {
     public class Player : IPlayer
     {
         public string Id { get; private set; }
+
+        public IRepository Repository
+        {
+            get; internal set; }
 
         public Player()
         {
@@ -36,5 +41,28 @@ namespace PictureLink.GameLogic
                 return false;
             }
         }
+
+        public void AwardMarks(ICompleteChain chain, Tuple<IGuess, int>[] marks)
+        {
+            if(marks.Any(t => t.Item1.Chain.Id != chain.Id))
+            {
+                throw new InvalidOperationException();
+            }
+            
+            if (marks.Length != 3)
+            {
+                throw new InvalidOperationException();
+            }
+
+            if(chain.HasMarksAssigned())
+            {
+                throw new InvalidOperationException();
+            }
+            foreach(var mark in marks)
+            {
+                this.Repository.Insert<IMarkDTO>(new MarkDTO() {Guess = mark.Item1, Score = mark.Item2, Awarder = this});
+            }    
+        }
+
     }
 }

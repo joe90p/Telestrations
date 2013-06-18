@@ -1,4 +1,6 @@
-﻿namespace PictureLink.GameLogic
+﻿using PictureLink.Data;
+
+namespace PictureLink.GameLogic
 {
     public class Guess : IGuess
     {
@@ -6,7 +8,7 @@
 
         public string Content { get; set; }
 
-        public IChain ParentChain {  get; set; }
+        public IChainDTO Chain {  get; set; }
 
         public GuessType Type
         {
@@ -19,12 +21,12 @@
             this.Contributor = player;
         }
 
-        public Guess(IGuessInfo guessInfo, IChain parentChain)
+        public Guess(IGuessInfo guessInfo, IChainDTO parentInPlayChain)
         {
             this.Contributor = guessInfo.Contributor;
             this.Content = guessInfo.Content;
             this.Type = guessInfo.Type;
-            this.ParentChain = parentChain;
+            this.Chain = parentInPlayChain;
         }
 
         public bool IsPlayerContributor(IPlayer otherPlayer)
@@ -40,6 +42,11 @@
         public static GuessType GetOtherGuessType(GuessType guessType)
         {
             return guessType == GuessType.Drawn ? GuessType.Written : GuessType.Drawn;
+        }
+
+        public int Id
+        {
+            get { throw new System.NotImplementedException(); }
         }
     }
 }

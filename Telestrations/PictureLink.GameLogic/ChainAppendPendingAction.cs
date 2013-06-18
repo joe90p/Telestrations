@@ -14,28 +14,28 @@ namespace PictureLink.GameLogic
             set; 
         }
 
-        internal IChain Chain { get; set; }
+        internal IInPlayChain InPlayChain { get; set; }
 
         public void Execute(IGuessInfo guess)
         {
-            this.Chain.AddGuess(guess);
+            this.InPlayChain.AddGuess(guess);
             this.Release(guess.Contributor);
         }
 
         public void Release(IPlayer player)
         {
-            this.Chain.Release(player);
+            this.InPlayChain.Release(player);
             this.PlayerPendingActions.Load(player, null);
         }
 
 
         public  ChainAppendPendingAction(ILoadableDictionary<IPlayer, IPendingAction> playerPendingActions,
             IPlayer player,
-            IChain chain)
+            IInPlayChain inPlayChain)
         {
-            this.Chain = chain;
+            this.InPlayChain = inPlayChain;
             this.PlayerPendingActions = playerPendingActions;
-            this.Chain.Lock(player);
+            this.InPlayChain.Lock(player);
         }
 
         internal ChainAppendPendingAction() {}

@@ -8,15 +8,15 @@ namespace PictureLink.GameLogic
 {
     public class GuessFactory : IGuessFactory
     {
-        private IChain chain;
+        private IInPlayChain inPlayChain;
 
-        public GuessFactory(IChain chain)
+        public GuessFactory(IInPlayChain inPlayChain)
         {
-            this.chain = chain;
+            this.inPlayChain = inPlayChain;
         }
         public IGuess MakeGuess(IGuessInfo guessInfo)
         {
-            return new Guess(guessInfo, this.chain);
+            return new Guess(guessInfo, this.inPlayChain);
         }
     }
 }

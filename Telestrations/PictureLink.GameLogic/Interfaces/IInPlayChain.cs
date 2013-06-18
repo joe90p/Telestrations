@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PictureLink.Data;
 
 namespace PictureLink.GameLogic
 {
-    public interface IChain
+    public interface IInPlayChain : IChainDTO
     {
         bool IsAvailableForPlayer(IPlayer player);
         void AddGuess(IGuessInfo guess);
@@ -15,5 +16,7 @@ namespace PictureLink.GameLogic
         void Lock(IPlayer player);
         IPlayer LockedBy { get; }
         void Release(IPlayer player);
+        int Id { get; }
+        
     }
 }

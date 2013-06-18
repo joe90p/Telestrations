@@ -24,7 +24,7 @@ namespace PictureLink.GameLogic.Test
         [TestMethod]
         public void IsAvailableForPlayer_ChainIsLocked_ReturnsFalse()
         {
-            var chain = new Chain();
+            var chain = new InPlayChain();
             chain.Lock(new Mock<IPlayer>().Object);
 
         }
@@ -32,7 +32,7 @@ namespace PictureLink.GameLogic.Test
         [TestMethod]
         public void AddGuess_MaximumLengthReached_FiresHandler()
         {
-            var chain = new Chain();
+            var chain = new InPlayChain();
             bool handlerHit = false;
             chain.MaximumChainLengthReached += (o, e) => handlerHit = true;
             Func<IGuess> getGuess = () =>
@@ -52,7 +52,7 @@ namespace PictureLink.GameLogic.Test
         [TestMethod]
         public void AddGuess_ContributorLockedChain_GuessAdded()
         {
-            var chain = new Chain();
+            var chain = new InPlayChain();
             var player1 = new Mock<IPlayer>();
             var guess = new Mock<IGuess>();
             guess.Setup(g => g.Contributor).Returns(player1.Object);
@@ -65,7 +65,7 @@ namespace PictureLink.GameLogic.Test
         [ExpectedException(typeof(ChainLockedException))]
         public void AddGuess_ContributorDidNotLockChain_ExceptionThrown()
         {
-            var chain = new Chain();
+            var chain = new InPlayChain();
             var player1 = new Mock<IPlayer>();
             var player2 = new Mock<IPlayer>();
             var guess = new Mock<IGuess>();
@@ -80,7 +80,7 @@ namespace PictureLink.GameLogic.Test
         [ExpectedException(typeof(ChainLockedException))]
         public void AddGuess_ContributorAlreadyHasGuessInChain_ExceptionThrown()
         {
-            var chain = new Chain();
+            var chain = new InPlayChain();
 
             Func<IGuess> getGuess = () =>
                                         {
@@ -100,7 +100,7 @@ namespace PictureLink.GameLogic.Test
         [TestMethod]
         public void Release_PlayerIsLocker_LockedByIsSetToNull()
         {
-            var chain = new Chain();
+            var chain = new InPlayChain();
             var player = new Mock<Player>();
             chain.Lock(player.Object);
             chain.Release(player.Object);
@@ -111,7 +111,7 @@ namespace PictureLink.GameLogic.Test
         [ExpectedException(typeof(ChainLockedException))]
         public void Release_PlayerIsNotLocker_ExceptionThrown()
         {
-            var chain = new Chain();
+            var chain = new InPlayChain();
             var player1 = new Mock<Player>();
             var player2 = new Mock<Player>();
             chain.Lock(player1.Object);
@@ -121,7 +121,7 @@ namespace PictureLink.GameLogic.Test
         [TestMethod]
         public void Lock_LockedByIsNull_ChainIsLockedByPlayer()
         {
-            var chain = new Chain();
+            var chain = new InPlayChain();
             var player = new Mock<Player>();
             chain.Lock(player.Object);
             Assert.IsTrue(chain.LockedBy==player.Object);
@@ -131,7 +131,7 @@ namespace PictureLink.GameLogic.Test
         [ExpectedException(typeof(ChainLockedException))]
         public void Lock_LockedByIsNotNull_ExceptionThrown()
         {
-            var chain = new Chain();
+            var chain = new InPlayChain();
             var player1 = new Mock<Player>();
             var player2 = new Mock<Player>();
             chain.Lock(player1.Object);
@@ -148,7 +148,7 @@ namespace PictureLink.GameLogic.Test
                 m.Setup(g => g.IsPlayerContributor(It.IsAny<IPlayer>())).Returns(b);
                 return m.Object;
             });
-            var chain = new Chain();
+            var chain = new InPlayChain();
             mocks.Select(
                 m =>
                     {

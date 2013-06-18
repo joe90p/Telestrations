@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PictureLink.Data;
+using PictureLink.Data.Test;
 
 namespace PictureLink.GameLogic
 {
-    public class Chain : IChain
+    public class InPlayChain : IInPlayChain
     {
         public const int MaximumLength = 8;
 
-        private const string LockedMessage = "This chain is locked to player with id {0}";
+        private const string LockedMessage = "This inPlayChain is locked to player with id {0}";
 
-        private IGuessFactory guessFactory;
+        private readonly IGuessFactory guessFactory;
 
         internal List<IGuess> Guesses
         {
@@ -37,13 +39,18 @@ namespace PictureLink.GameLogic
             get { return this.Guesses.Last(); }
         }
 
-        public Chain()
+        public int Id
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public InPlayChain()
         {
             this.guessFactory = new GuessFactory(this);
             this.Guesses = new List<IGuess>();
         }
 
-        public Chain(IGuessInfo guessInfo)
+        public InPlayChain(IGuessInfo guessInfo)
         {
             this.guessFactory = new GuessFactory(this);
             this.Guesses = new List<IGuess>{this.guessFactory.MakeGuess(guessInfo)};
@@ -64,7 +71,7 @@ namespace PictureLink.GameLogic
             if (HasPlayerContributedGuess(guessInfo.Contributor))
             {
                 string message = String.Format(
-                    "Player with id {0} has already contributed a guess to the chain", Maybe.From(guessInfo.Contributor).
+                    "Player with id {0} has already contributed a guess to the inPlayChain", Maybe.From(guessInfo.Contributor).
                                                                                             Select(c => c.Id));
                 throw new ChainLockedException(message);
             }
@@ -110,6 +117,8 @@ namespace PictureLink.GameLogic
             }
             this.LockedBy = null;
         }
+       
+        
     }
 
 

@@ -12,7 +12,7 @@ namespace PictureLink.GameLogic.Test
         public void GetLongestChainForPlayer_Standard_ReturnsChainWithHighestCount()
         {
             const int highestLength = 3;
-            Func<int, IChain> getChain = i => { var mock = new Mock<IChain>(); 
+            Func<int, IInPlayChain> getChain = i => { var mock = new Mock<IInPlayChain>(); 
                 mock.Setup(c => c.Count).Returns(i);
                 mock.Setup(c => c.IsAvailableForPlayer(It.IsAny<IPlayer>())).Returns(true);
                 return mock.Object;};
