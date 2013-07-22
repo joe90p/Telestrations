@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureLink.Data", "Picture
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureLink.Data.Test", "PictureLink.Data.Test\PictureLink.Data.Test.csproj", "{AD86FB08-DF47-4BDA-B21D-EC7F08EE3642}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureLinkMVC.Web", "PictureLinkMVC.Web\PictureLinkMVC.Web.csproj", "{399764AB-5822-4F60-A30C-7C0F24E007EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,10 @@ Global
 		{AD86FB08-DF47-4BDA-B21D-EC7F08EE3642}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD86FB08-DF47-4BDA-B21D-EC7F08EE3642}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD86FB08-DF47-4BDA-B21D-EC7F08EE3642}.Release|Any CPU.Build.0 = Release|Any CPU
+		{399764AB-5822-4F60-A30C-7C0F24E007EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{399764AB-5822-4F60-A30C-7C0F24E007EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{399764AB-5822-4F60-A30C-7C0F24E007EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{399764AB-5822-4F60-A30C-7C0F24E007EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,19 +14,19 @@ namespace PictureLink.GameLogic
 
         private const string LockedMessage = "This inPlayChain is locked to player with id {0}";
 
-        private readonly IGuessFactory guessFactory;
+        internal IGuessFactory GuessFactory { get; set; }
 
-        internal List<IGuess> Guesses
+        public IList<IGuessDTO> Guesses
         {
             get;
-            set;
+            internal set;
         }
         public event EventHandler<EventArgs> MaximumChainLengthReached;
 
         public IPlayer LockedBy
         {
             get;
-            private set;
+            internal set;
         }
 
         public int Count
@@ -34,7 +34,7 @@ namespace PictureLink.GameLogic
             get { return this.Guesses.Count; }
         }
 
-        public IGuess Head
+        public IGuessDTO Head
         {
             get { return this.Guesses.Last(); }
         }
@@ -46,14 +46,14 @@ namespace PictureLink.GameLogic
 
         public InPlayChain()
         {
-            this.guessFactory = new GuessFactory(this);
-            this.Guesses = new List<IGuess>();
+            this.GuessFactory = new GuessFactory(this);
+            this.Guesses = new List<IGuessDTO>();
         }
 
         public InPlayChain(IGuessInfo guessInfo)
         {
-            this.guessFactory = new GuessFactory(this);
-            this.Guesses = new List<IGuess>{this.guessFactory.MakeGuess(guessInfo)};
+            this.GuessFactory = new GuessFactory(this);
+            this.Guesses = new List<IGuessDTO> { this.GuessFactory.MakeGuess(guessInfo) };
         }
 
         public bool IsAvailableForPlayer(IPlayer player)
@@ -63,7 +63,7 @@ namespace PictureLink.GameLogic
 
         public bool HasPlayerContributedGuess(IPlayer player)
         {
-            return this.Guesses.Any(g => g.IsPlayerContributor(player));
+            return this.Guesses.Any(g => g.Contributor.Id == player.Id);
         }
 
         public void AddGuess(IGuessInfo guessInfo)
@@ -79,7 +79,7 @@ namespace PictureLink.GameLogic
             {
                 throw new ChainLockedException(GetLockedMessage());
             }
-            this.Guesses.Add(this.guessFactory.MakeGuess(guessInfo));
+            this.Guesses.Add(this.GuessFactory.MakeGuess(guessInfo));
             if (Guesses.Count == MaximumLength)
             {
                 this.OnMaximumChainLengthReached();

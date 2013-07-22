@@ -64,6 +64,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PictureLink.Data\PictureLink.Data.csproj">
+      <Project>{581b498e-bf64-438e-a5ef-836a8db23e69}</Project>
+      <Name>PictureLink.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PictureLink.GameLogic\PictureLink.GameLogic.csproj">
       <Project>{26901e26-21fc-4c1b-b837-cf373b50015a}</Project>
       <Name>PictureLink.GameLogic</Name>

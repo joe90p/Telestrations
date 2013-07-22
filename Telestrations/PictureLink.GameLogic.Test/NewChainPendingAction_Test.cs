@@ -11,7 +11,7 @@ namespace PictureLink.GameLogic.Test
         public void Execute_Standard_CallsNullPendingAction()
         {
             var player = new Mock<IPlayer>();
-            var guess = new Mock<IGuess>();
+            var guess = new Mock<IGuessInfo>();
             var pendingActions = new Mock<ILoadableDictionary<IPlayer, IPendingAction>>();
             var chainList = new Mock<IChainList>();
 

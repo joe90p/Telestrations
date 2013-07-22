@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompleteChain.cs" />
+    <Compile Include="GameScoring.cs" />
     <Compile Include="InPlayChain.cs" />
     <Compile Include="ChainAppendPendingAction.cs" />
     <Compile Include="ChainList.cs" />
@@ -66,7 +67,6 @@
     <Compile Include="NewChainPendingAction.cs" />
     <Compile Include="PendingActionFactorycs.cs" />
     <Compile Include="Player.cs" />
-    <Compile Include="PlayGuess.cs" />
     <Compile Include="PlaySession.cs" />
     <Compile Include="PlayType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

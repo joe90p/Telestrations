@@ -9,6 +9,6 @@ namespace PictureLink.GameLogic
 {
     public interface IPlayer : IPlayerDTO
     {
-        void AwardMarks(ICompleteChain chain, Tuple<IGuess, int>[] marks);
+        void AwardMarks(ICompleteChain chain, Tuple<IGuessDTO, int>[] marks);
     }
 }

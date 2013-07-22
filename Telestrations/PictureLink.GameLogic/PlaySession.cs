@@ -1,4 +1,6 @@
-﻿namespace PictureLink.GameLogic
+﻿using PictureLink.Data;
+
+namespace PictureLink.GameLogic
 {
     public class PlaySession : IPlaySession
     {
@@ -8,7 +10,7 @@
             private set;
         }
 
-        public IGuess PreviousGuess
+        public IGuessDTO PreviousGuess
         {
             get;
             internal set;
@@ -24,7 +26,7 @@
         {
         }
 
-        public PlaySession(IGuess previousGuess, PlayType type)
+        public PlaySession(IGuessDTO previousGuess, PlayType type)
         {
             this.PreviousGuess = previousGuess;
             this.Type = type;
@@ -33,7 +35,7 @@
 
         public void SetGuessType()
         {
-            this.GuessType = this.PreviousGuess == null ? GuessType.Written : this.PreviousGuess.GetNextGuessType();
+            this.GuessType = this.PreviousGuess == null ? GuessType.Written : Guess.GetOtherGuessType(this.PreviousGuess.Type);
         }
     }
 }

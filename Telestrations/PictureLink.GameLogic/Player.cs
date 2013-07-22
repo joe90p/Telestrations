@@ -42,7 +42,7 @@ namespace PictureLink.GameLogic
             }
         }
 
-        public void AwardMarks(ICompleteChain chain, Tuple<IGuess, int>[] marks)
+        public void AwardMarks(ICompleteChain chain, Tuple<IGuessDTO, int>[] marks)
         {
             if(marks.Any(t => t.Item1.Chain.Id != chain.Id))
             {
@@ -64,5 +64,11 @@ namespace PictureLink.GameLogic
             }    
         }
 
+
+
+        public string Name
+        {
+            get { throw new NotImplementedException(); }
+        }
     }
 }

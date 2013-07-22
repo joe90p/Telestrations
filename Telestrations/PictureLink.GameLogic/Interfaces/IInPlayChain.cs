@@ -12,11 +12,10 @@ namespace PictureLink.GameLogic
         bool IsAvailableForPlayer(IPlayer player);
         void AddGuess(IGuessInfo guess);
         int Count { get; }
-        IGuess Head { get; }
+        IGuessDTO Head { get; }
         void Lock(IPlayer player);
         IPlayer LockedBy { get; }
         void Release(IPlayer player);
-        int Id { get; }
-        
+        IList<IGuessDTO> Guesses { get; }
     }
 }

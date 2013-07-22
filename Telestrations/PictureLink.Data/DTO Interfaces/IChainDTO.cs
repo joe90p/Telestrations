@@ -9,5 +9,7 @@ namespace PictureLink.Data
     public interface IChainDTO
     {
         int Id { get; }
+        IList<IGuessDTO> Guesses { get; }
+        
     }
 }

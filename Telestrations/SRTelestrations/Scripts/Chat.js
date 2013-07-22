@@ -169,7 +169,7 @@ function Draw() {
         var imageHolder = document.getElementById("imageContainer");
         if (toGuess !== null && isNewGame !== true)
             {
-        imageHolder.src = "Images/" + toGuess;
+        imageHolder.src = "data:image/png;base64," + toGuess;
         writtenGuess.value = toGuess;
         label.innerHTML = toGuess;
         }

@@ -10,5 +10,8 @@ namespace PictureLink.Data
     {
         int Id { get; }
         IChainDTO Chain { get; }
+        GuessType Type { get; }
+        string Content { get; set; }
+        IPlayerDTO Contributor { get; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿
-namespace PictureLink.GameLogic
+
+
+namespace PictureLink.Data
 {
     public enum GuessType
     {

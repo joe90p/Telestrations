@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PictureLink.Data;
 
 namespace PictureLink.GameLogic
 {
     public class GuessFactory : IGuessFactory
     {
-        private IInPlayChain inPlayChain;
+        private IChainDTO chain;
 
-        public GuessFactory(IInPlayChain inPlayChain)
+        public GuessFactory(IChainDTO chain)
         {
-            this.inPlayChain = inPlayChain;
+            this.chain = chain;
         }
-        public IGuess MakeGuess(IGuessInfo guessInfo)
+        public IGuessDTO MakeGuess(IGuessInfo guessInfo)
         {
-            return new Guess(guessInfo, this.inPlayChain);
+            return new Guess(guessInfo, this.chain);
         }
     }
 }

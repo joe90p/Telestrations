@@ -8,6 +8,7 @@ using System.ServiceModel.Activation;
 using System.ServiceModel.Web;
 using System.Text;
 using Microsoft.AspNet.SignalR;
+using PictureLink.Data;
 using PictureLink.GameLogic;
 
 namespace PictureLink.Web
@@ -32,25 +33,8 @@ namespace PictureLink.Web
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         public string UploadImage(string image, string id)
         {
-            var imagesFolder = "C:\\Phil\\Telestrations\\Telestrations\\SRTelestrations\\Images";
-            var fileName = this.GetImageName();
-            if (!Directory.Exists(imagesFolder))
-            {
-                Directory.CreateDirectory(imagesFolder);
-            }
-            var fileNameWitPath = imagesFolder + "\\" + this.GetImageName();
-            using (var fs = new FileStream(fileNameWitPath, FileMode.Create))
-            {
-                using (var bw = new BinaryWriter(fs))
-                {
-                    var data = Convert.FromBase64String(image);
-                    bw.Write(data);
-                    bw.Close();
-                }
-            }
-            var context = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
             var player = new Player(id);
-            var guess = new GuessInfo(player, fileName, GuessType.Drawn);
+            var guess = new GuessInfo(player, image, GuessType.Drawn);
             GameHub.GameManager.AddGuess(guess);
             return "great";
 
@@ -63,11 +47,6 @@ namespace PictureLink.Web
             var player = new Player(id);
             var session = GameHub.GameManager.GetPlaySession(player);
             return PlaySessionTransfer.GetFromPlaySession(session);
-        }
-
-        private string GetImageName()
-        {
-            return DateTime.Now.ToString().Replace("/", "-").Replace(" ", "- ").Replace(":", "") + ".png";
         }
 
         // Add more operations here and mark them with [OperationContract]
@@ -121,9 +100,9 @@ namespace PictureLink.Web
         {
             switch (guessType)
             {
-                case GameLogic.GuessType.Drawn:
+                case Data.GuessType.Drawn:
                     return "D";
-                case GameLogic.GuessType.Written:
+                case Data.GuessType.Written:
                     return "W";
                 default:
                     return string.Empty;

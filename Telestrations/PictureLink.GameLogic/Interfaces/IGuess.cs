@@ -7,12 +7,12 @@ using PictureLink.Data;
 
 namespace PictureLink.GameLogic
 {
-    public interface IGuess : IGuessDTO
+    /*public interface IGuess : IGuessDTO
     {
-        IPlayer Contributor { get; }
-        string Content { get; set; }
-        bool IsPlayerContributor(IPlayer otherPlayer);
-        GuessType Type { get; }
+        //IPlayer Contributor { get; }
+        
+        /*bool IsPlayerContributor(IPlayer otherPlayer);
+        
         GuessType GetNextGuessType();
-    }
+    }*/
 }

@@ -12,10 +12,10 @@ namespace PictureLink.GameLogic.Test
         {
             var chainList = new Mock<IChainList>();
             var player = new Mock<IPlayer>();
-            var guess = new Mock<IGuess>();
+            var guess = new Mock<IGuessInfo>();
             var pendingActions = new Mock<ILoadableDictionary<IPlayer, IPendingAction>>();
 
-            chainList.Setup(t => t.CreateNew(It.Is<IGuess>(g => g== guess.Object))).Verifiable();
+            chainList.Setup(t => t.CreateNew(It.Is<IGuessInfo>(g => g== guess.Object))).Verifiable();
             var factory = new PendingActionFactory(chainList.Object, pendingActions.Object);
             var action = factory.GetPendingAction(player.Object, null);
             action.Execute(guess.Object);
@@ -42,11 +42,11 @@ namespace PictureLink.GameLogic.Test
             var chainList = new Mock<IChainList>();
             var player = new Mock<IPlayer>();
             var chain = new Mock<IInPlayChain>();
-            var guess = new Mock<IGuess>();
+            var guess = new Mock<IGuessInfo>();
             var pendingActions = new Mock<ILoadableDictionary<IPlayer, IPendingAction>>();
 
             guess.Setup(g => g.Contributor).Returns(player.Object);
-            chain.Setup(c => c.AddGuess(It.Is<IGuess>(g => g == guess.Object))).Verifiable();
+            chain.Setup(c => c.AddGuess(It.Is<IGuessInfo>(g => g == guess.Object))).Verifiable();
             chain.Setup(c => c.Release(It.Is<IPlayer>(p => p==player.Object))).Verifiable();
 
             var factory = new PendingActionFactory(chainList.Object, pendingActions.Object);
