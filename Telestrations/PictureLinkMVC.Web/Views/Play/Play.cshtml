@@ -1,0 +1,117 @@
+﻿@model PictureLinkMVC.Web.Models.PlaySessionTransfer
+
+@{
+    ViewBag.Title = "PlayArea";
+}
+
+<form action="/Play/SubmitGuess" method="post" id="theForm">
+    <input type="hidden" id="guessValue" name="guessValue"/>
+    <input type="hidden" id="guessType" name="guessType" value="@Html.Raw(Model.GuessType)"/>
+</form>
+
+<div id="previousGuess">
+    @if(Model.GuessType == "W")
+    {
+        <img width="500" height="500" src="data:image/png;base64,@Html.Raw(Model.PreviousGuess)" />
+    }
+    else
+    {
+        <label id="imageGuess">@Html.Raw(Model.PreviousGuess)</label>
+    }
+    
+</div>
+<div id="guessArea">
+    @if(Model.GuessType == "W")
+    {
+        <input type="text" id="writtenGuess"/>
+    }
+    else
+    {
+        <canvas id="draw" width="500" height="500" class="imageHolder">
+    
+        </canvas>
+    }
+    
+</div>
+<button id="submitGuess" >Submit Guess</button>
+
+@if(Model.GuessType == "W")
+    {
+        <script>
+            var writtenGuess = document.getElementById("writtenGuess");
+            var submitDraw = document.getElementById("submitGuess");
+
+            var guessValue = document.getElementById("guessValue");
+            
+            function submitDrawClick() {
+                guessValue.value = writtenGuess.value;
+                var form = document.getElementById("theForm");
+                form.submit();
+            }
+
+            submitDraw.addEventListener('click', submitDrawClick);
+        </script>
+    }
+    else
+    {
+        <script>
+            var drawCanvas = document.getElementById("draw");
+            var submitDraw = document.getElementById("submitGuess");
+            var guessValue = document.getElementById("guessValue");
+
+            submitDraw.addEventListener('click', submitDrawClick);
+
+            var draw = false;
+            var canvasCtx = drawCanvas.getContext("2d");
+            var os = getOffset(drawCanvas);
+            SetDrawCanvas();
+
+
+            function submitDrawClick() {
+                var im = drawCanvas.toDataURL("image/png");
+                im = im.replace('data:image/png;base64,', '');
+                guessValue.value = im;
+                var form = document.getElementById("theForm");
+                form.submit();
+            }
+
+            function SetDrawCanvas() {
+                drawCanvas.addEventListener('mousedown', function () {
+                    draw = true;
+                });
+
+                drawCanvas.addEventListener('mouseup', function () {
+                    draw = false;
+                });
+
+                drawCanvas.addEventListener('mouseout', function () {
+                    draw = false;
+                });
+
+                drawCanvas.addEventListener('mousemove', pencilDraw);
+            }
+
+            function pencilDraw(e) {
+                if (draw) {
+
+                    var point = { x: e.clientX - os.x, y: e.clientY - os.y };
+                    canvasCtx.fillStyle = "#000000";
+                    canvasCtx.fillRect(point.x, point.y, 3, 3);
+                }
+            }
+            
+            function getOffset(el) {
+                debugger;
+                var x = y = 0;
+                if (el.offsetParent) {
+                    do {
+                        x += el.offsetLeft;
+                        y += el.offsetTop;
+                    } while (el = el.offsetParent)
+                }
+                return { "x": x, "y": y };
+            }
+        </script>
+    }
+
+

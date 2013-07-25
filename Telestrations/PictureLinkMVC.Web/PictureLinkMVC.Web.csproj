@@ -184,6 +184,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GameScoreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PlayController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -192,6 +193,7 @@
     <Compile Include="Models\GameScoreModels.cs" />
     <Compile Include="Models\Mark.cs" />
     <Compile Include="Models\PictureLinkDb.cs" />
+    <Compile Include="Models\PlayModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +267,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\MarkSubmit.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -305,7 +308,13 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\GameScore\ChainsView.cshtml" />
+    <Content Include="Views\GameScore\ChainView.cshtml" />
+    <Content Include="Views\Play\Index.cshtml" />
+    <Content Include="Views\Play\Play.cshtml" />
     <Content Include="Views\GameScore\Index.cshtml" />
+    <Content Include="Views\GameScore\_ViewStart.cshtml" />
+    <Content Include="Views\GameScore\_GameScoreLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

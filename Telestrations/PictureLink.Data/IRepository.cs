@@ -15,5 +15,6 @@ namespace PictureLink.Data
         void Save<T>(T target);
         void Insert<T>(object target);
         IEnumerable<IChainDTO> GetUnMarkedChains();
+        IChainDTO GetChain(int index);
     }
 }

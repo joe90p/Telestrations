@@ -8,7 +8,7 @@ namespace PictureLink.Data
 {
     public interface IPlayerDTO
     {
-        string Id { get; }
+        int Id { get; }
         string Name { get; }
     }
 }

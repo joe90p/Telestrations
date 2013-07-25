@@ -16,26 +16,16 @@ namespace PictureLink.Web
 
         public void Register()
         {
-            var playerId = Context.ConnectionId;
-            var player = new Player(playerId);
-            if (GameManager.IsPlayerInGame(player))
-            {
-                Clients.Caller.broadcastMessage("GameHub", "You are already registered.");
-            }
-            else
-            {
-                GameManager.AddPlayer(player);
-                Clients.Caller.broadcastMessage("GameHub", "You successfully registered.");
-            }
+
         }
 
-        public void AddWriitenGuess(string guess)
+        /*public void AddWriitenGuess(string guess)
         {
             var playerId = Context.ConnectionId;
             var player = new Player(playerId);
             var guessObj = new GuessInfo(player,guess, GuessType.Written);
             GameManager.AddGuess(guessObj);
-        }
+        }*/
 
         public override Task OnDisconnected()
         {

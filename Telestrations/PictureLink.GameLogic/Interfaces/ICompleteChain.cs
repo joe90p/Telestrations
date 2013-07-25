@@ -9,6 +9,6 @@ namespace PictureLink.GameLogic
 {
     public interface ICompleteChain : IChainDTO
     {
-        bool HasMarksAssigned();
+        bool HasMarksAssigned(int playerId);
     }
 }

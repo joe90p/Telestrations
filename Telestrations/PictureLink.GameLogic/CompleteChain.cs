@@ -21,7 +21,7 @@ namespace PictureLink.GameLogic
             get { throw new NotImplementedException(); }
         }
 
-        public bool HasMarksAssigned()
+        public bool HasMarksAssigned(int playerId)
         {
             return this.Repository.Query<IMarkDTO>(x => x.Guess.Chain.Id == this.chain.Id).Any();
         }

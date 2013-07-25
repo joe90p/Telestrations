@@ -1,0 +1,88 @@
+﻿@model IList<PictureLinkMVC.Web.Models.GuessForMarking>
+
+@{
+    ViewBag.Title = "Mark";
+}
+
+@using (Html.BeginForm("Submit", "GameScore"))
+{
+    <input type="hidden" name="jsonSubmit"/>
+    <table id="guessesTable">
+        <tr>
+            <th>Guess</th>
+            <th>Contributor</th>
+            <th>Mark</th>
+        </tr>
+
+        @for (int i = 0; i < Model.Count(); i++)
+            
+        {
+            <tr>
+                <td>
+                    @Html.HiddenFor(x => x[i].GuessId)
+
+                    @if (Model[i].ContentType == "Written")
+                    {
+                        @Html.DisplayFor(m => Model[i].Content)
+                    }
+                    else
+                    {
+                        <img width="200" height="200" src="data:image/png;base64,@Html.Raw(Model[i].Content)" />
+                
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(m => m[i].ContributorName)
+                </td>
+                <td>
+                    @if(ViewBag.ToMark)
+                    {
+                        @Html.DropDownListFor(x => x[i].Mark, Model[i].AvailableMarks)
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(x => x[i].Mark)
+                    }
+                    
+                </td>
+            </tr>
+        }
+
+
+    </table>
+    
+    if(ViewBag.ToMark)
+    {
+                        <input type="submit" value="Submit"/>
+    }
+    
+    
+}
+
+@if (ViewBag.ToMark)
+{
+    <script>
+        function onmarksubmitclick() {
+            debugger;
+            var guesses = new Array();
+            var table = document.getElementById("guessesTable");
+            for (var i = 0, row; row = table.rows[i]; i++) {
+            
+                function getValueByName(name) {
+                    if ($(row).find("[name='"+name+"']").length > 0) {
+                        return $(row).find("[name='" + name + "']")[0].value;
+                    }
+                    return "";
+                }
+
+                var guessId = getValueByName("guessId");
+
+                var marks = getValueByName("marks");
+            
+                //guesses[guesses.length] = 
+            
+            
+            }
+        }
+    </script>
+    }

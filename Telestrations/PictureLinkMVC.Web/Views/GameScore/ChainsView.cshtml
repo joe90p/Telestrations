@@ -1,0 +1,59 @@
+﻿@model IEnumerable<PictureLinkMVC.Web.Models.IChainSummary>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Unmarked Chains</h2>
+
+
+  
+
+<table>
+    <tr>
+        <th>My Guess</th>
+        <th>Other Contributors</th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @if(item.PlayerGuess.Type == "Written")
+            {
+                @Html.DisplayFor(m => item.PlayerGuess.Content)
+            }
+            else
+            {
+                <img width="200" height="200" src="data:image/png;base64,@Html.Raw(item.PlayerGuess.Content)" />
+                
+            }
+        </td>
+        <td>
+            <table>
+                @foreach (var contributor in item.OtherContributors)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => contributor)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </td>
+        <td>
+            @if(ViewBag.ToMark)
+            {
+                @Html.ActionLink("Mark", "ChainView", new { id = item.ChainId,  toMark = true});
+            }
+            else
+            {
+                @Html.ActionLink("View", "ChainView", new { id = item.ChainId,  toMark = false});
+            }
+        </td>
+    </tr>
+}
+    
+
+
+</table>

@@ -10,9 +10,9 @@ namespace PictureLink.GameLogic
 {
     public class InPlayChain : IInPlayChain
     {
-        public const int MaximumLength = 8;
+        public const int MaximumLength = 4;
 
-        private const string LockedMessage = "This inPlayChain is locked to player with id {0}";
+        private const string LockedMessage = "This chain is locked to {0}";
 
         internal IGuessFactory GuessFactory { get; set; }
 
@@ -71,8 +71,8 @@ namespace PictureLink.GameLogic
             if (HasPlayerContributedGuess(guessInfo.Contributor))
             {
                 string message = String.Format(
-                    "Player with id {0} has already contributed a guess to the inPlayChain", Maybe.From(guessInfo.Contributor).
-                                                                                            Select(c => c.Id));
+                    "{0} has already contributed a guess to the chain", Maybe.From(guessInfo.Contributor).
+                                                                                            Select(c => c.Name).Value);
                 throw new ChainLockedException(message);
             }
             if (guessInfo.Contributor.Id != this.LockedBy.Id)
@@ -97,7 +97,7 @@ namespace PictureLink.GameLogic
 
         private string GetLockedMessage()
         {
-            return String.Format(LockedMessage, Maybe.From(this.LockedBy).Select(c => c.Id));
+            return String.Format(LockedMessage, Maybe.From(this.LockedBy).Select(c => c.Name).Value);
         }     
 
         private void OnMaximumChainLengthReached()

@@ -9,7 +9,7 @@ namespace PictureLink.GameLogic
 {
     public class Player : IPlayer
     {
-        public string Id { get; private set; }
+        public int Id { get; private set; }
 
         public IRepository Repository
         {
@@ -19,7 +19,7 @@ namespace PictureLink.GameLogic
         {
         }
 
-        public Player(string id)
+        public Player(int id)
         {
             this.Id = id;
         }
@@ -42,19 +42,22 @@ namespace PictureLink.GameLogic
             }
         }
 
-        public void AwardMarks(ICompleteChain chain, Tuple<IGuessDTO, int>[] marks)
+        public void AwardMarks(Tuple<IGuessDTO, int>[] marks)
         {
-            if(marks.Any(t => t.Item1.Chain.Id != chain.Id))
-            {
-                throw new InvalidOperationException();
-            }
-            
-            if (marks.Length != 3)
+            var chainId = marks[0].Item1.Chain.Id;
+
+            if(marks.Select(m => m.Item1.Chain.Id).Any(x => x != chainId))
             {
                 throw new InvalidOperationException();
             }
 
-            if(chain.HasMarksAssigned())
+            var chain = this.Repository.Query<IChainDTO>(c => c.Id == chainId).FirstOrDefault();
+
+            var chainComplete = new CompleteChain(chain);
+            
+            
+
+            if (chainComplete.HasMarksAssigned(this.Id))
             {
                 throw new InvalidOperationException();
             }
@@ -68,7 +71,6 @@ namespace PictureLink.GameLogic
 
         public string Name
         {
-            get { throw new NotImplementedException(); }
-        }
+            get; private set; }
     }
 }

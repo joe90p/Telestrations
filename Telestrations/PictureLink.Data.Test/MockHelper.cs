@@ -32,7 +32,7 @@ namespace PictureLink.Data.Test
                 return Enumerable.Range(1, 3).Select(MakeChain);
             }
 
-            private static IChainDTO MakeChain(int index)
+            public static IChainDTO MakeChain(int index)
             {
                 var chain = new Mock<IChainDTO>();
                 var fac = new MockGuessesFactory(chain.Object);
@@ -40,6 +40,12 @@ namespace PictureLink.Data.Test
                 var guesses = fac.MakeGuesses();
                 chain.Setup(c => c.Guesses).Returns(guesses.ToList());
                 return chain.Object;
+            }
+
+
+            public IChainDTO GetChain(int index)
+            {
+                return MakeChain(index);
             }
         }
 
@@ -90,8 +96,8 @@ namespace PictureLink.Data.Test
             {
                 var mockGuess = new Mock<IGuessDTO>();
                 var mockPlayer = new Mock<IPlayerDTO>();
-                mockPlayer.Setup(p => p.Id).Returns(index.ToString());
-                mockPlayer.Setup(p => p.Name).Returns("player" + index.ToString());
+                mockPlayer.Setup(p => p.Id).Returns(index);
+                mockPlayer.Setup(p => p.Name).Returns("player" + index);
                 mockGuess.Setup(g => g.Chain).Returns(this.chain);
                 mockGuess.Setup(g => g.Content).Returns(this.contentLookup[index].Item2);
                 mockGuess.Setup(g => g.Contributor).Returns(mockPlayer.Object);

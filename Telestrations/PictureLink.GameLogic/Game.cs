@@ -79,5 +79,12 @@ namespace PictureLink.GameLogic
             Maybe.From(PlayerPendingActions[player]).
                 Do(p => p.Release(player));
         }
+
+        public static IGame Instance
+        {
+            get { return instance ?? (instance = new Game()); }
+        }
+
+        private static IGame instance;
     }
 }

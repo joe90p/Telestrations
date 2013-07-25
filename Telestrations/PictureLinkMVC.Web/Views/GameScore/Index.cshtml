@@ -1,46 +1,5 @@
-﻿@model IEnumerable<PictureLinkMVC.Web.Models.IChainSummary>
-
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>My Guess</th>
-        <th>Other Contributors</th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @if(item.PlayerGuess.Type == "Written")
-            {
-                @Html.DisplayFor(m => item.PlayerGuess.Content)
-            }
-            else
-            {
-                <img width="200" height="200" src="data:image/png;base64,@Html.Raw(item.PlayerGuess.Content)" />
-                
-            }
-        </td>
-        <td>
-            <table>
-                @foreach (var contributor in item.OtherContributors)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(m => contributor)
-                        </td>
-                    </tr>
-                }
-            </table>
-        </td>
-    </tr>
-}
-
-</table>

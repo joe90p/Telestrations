@@ -1,31 +1,73 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using PictureLink.Data;
 
 namespace PictureLinkMVC.Web.Models
 {
-
     public interface IChainSummary
     {
         PlayerGuess PlayerGuess { get; set; }
         string[] OtherContributors { get; set; }
+        int ChainId { get; }
     }
 
     public class ChainSummary : IChainSummary
     {
         public PlayerGuess PlayerGuess { get; set; }
         public string[] OtherContributors { get; set; }
+        public int ChainId { get; set; }
         internal ChainSummary(IChainDTO chain, int playerId)
         {
-            var playerGuess = chain.Guesses.FirstOrDefault(g => g.Contributor.Id == playerId.ToString());
+            this.ChainId = chain.Id;
+            var playerGuess = chain.Guesses.FirstOrDefault(g => g.Contributor.Id == playerId);
             this.PlayerGuess = new PlayerGuess(playerGuess.Content, playerGuess.Type.ToString());
             this.OtherContributors =
-                chain.Guesses.Where(g => g.Contributor.Id != playerId.ToString()).Select(g => g.Contributor.Name).ToArray();
+                chain.Guesses.Where(g => g.Contributor.Id != playerId).Select(g => g.Contributor.Name).ToArray();
         }
 
     }
+
+    public class GuessForMarking 
+    {
+        public int Mark
+        {
+            get; set; }
+
+        public string ContributorName { get; set; }
+
+        public string Content { get; set; }
+
+        public string ContentType { get; set; }
+
+        public SelectList AvailableMarks
+        {
+            get; set; }
+
+        public int GuessId
+        {
+            get; set; }
+
+        public GuessForMarking(IGuessDTO guess)
+        {
+            this.ContributorName = guess.Contributor.Name;
+            this.Content = guess.Content;
+            this.ContentType = guess.Type.ToString();
+            this.GuessId = GuessId;
+            this.AvailableMarks = new SelectList(new[] { 0, 1, 2, 3 });
+
+        }
+
+        public GuessForMarking()
+        {
+        }
+
+    }
+
+
 
     public class PlayerGuess
     {
@@ -36,6 +78,17 @@ namespace PictureLinkMVC.Web.Models
         {
             this.Content = content;
             this.Type = type;
+        }
+    }
+
+    public class ScoreInfo
+    {
+        public int Score { get; set; }
+        public Tuple<string, int>[] Leaders { get; set; }
+        public static ScoreInfo GetDummyScore()
+        {
+            var si = new ScoreInfo {Score = 12, Leaders = new[] {Tuple.Create("John", 45), Tuple.Create("Bloke", 3)}};
+            return si;
         }
     }
 }

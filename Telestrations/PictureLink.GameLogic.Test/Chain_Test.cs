@@ -80,8 +80,8 @@ namespace PictureLink.GameLogic.Test
             var chain = new InPlayChain();
             var player1 = new Mock<IPlayer>();
             var player2 = new Mock<IPlayer>();
-            player1.Setup(p => p.Id).Returns("1");
-            player2.Setup(p => p.Id).Returns("2");
+            player1.Setup(p => p.Id).Returns(1);
+            player2.Setup(p => p.Id).Returns(2);
             var guess = new Mock<IGuessInfo>();
             guess.Setup(g => g.Contributor).Returns(player2.Object);
             chain.Lock(player1.Object);
@@ -122,8 +122,8 @@ namespace PictureLink.GameLogic.Test
             var chain = new InPlayChain();
             var player1 = new Mock<IPlayer>();
             var player2 = new Mock<IPlayer>();
-            player1.Setup(p => p.Id).Returns("1");
-            player2.Setup(p => p.Id).Returns("2");
+            player1.Setup(p => p.Id).Returns(1);
+            player2.Setup(p => p.Id).Returns(2);
             chain.Lock(player1.Object);
             chain.Release(player2.Object);
         }

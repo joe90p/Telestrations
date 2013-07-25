@@ -29,7 +29,7 @@ namespace PictureLink.Web
             return;
         }
 
-        [OperationContract]
+        /*[OperationContract]
         [WebInvoke(Method = "POST", BodyStyle = WebMessageBodyStyle.WrappedRequest)]
         public string UploadImage(string image, string id)
         {
@@ -38,21 +38,21 @@ namespace PictureLink.Web
             GameHub.GameManager.AddGuess(guess);
             return "great";
 
-        }
+        }*/
 
-        [OperationContract]
+        /*[OperationContract]
         [WebGet]
         public PlaySessionTransfer GetPlaySession(string id)
         {
             var player = new Player(id);
             var session = GameHub.GameManager.GetPlaySession(player);
             return PlaySessionTransfer.GetFromPlaySession(session);
-        }
+        }*/
 
         // Add more operations here and mark them with [OperationContract]
     }
 
-    [DataContract]
+    /*[DataContract]
     public class PlaySessionTransfer
     {
         [DataMember]
@@ -111,5 +111,5 @@ namespace PictureLink.Web
 
 
 
-    }
+    }*/
 }

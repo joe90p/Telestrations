@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "GameScoreLayout";
+    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<div class="scoreLayout">
+    <nav class="scoreMenu">
+              <ul class="vertMenu">
+                  <li>@Html.ActionLink("Unmarked Chains", "ChainsView", new {toMark= true})</li>
+                  <li>@Html.ActionLink("Marked Chains", "ChainsView", new {toMark= false})</li>
+              </ul>
+    </nav>
+    <section class="scoreContent">
+        @RenderBody()
+    </section>
+    <aside class="scoreSide">
+        <h2>My Score: @ViewBag.ScoreInfo.Score</h2>
+        <h2>LeaderBoard:</h2>
+        <table>
+           <tr>
+            <th>Name</th>
+            <th>Score</th>
+        </tr> 
+        
+        @foreach(var i in @ViewBag.ScoreInfo.Leaders)
+        {
+            <tr>
+                <td>@i.Item1</td>
+                <td>@i.Item2</td>
+            </tr>
+        }
+            </table>
+    </aside>
+    
+</div>
