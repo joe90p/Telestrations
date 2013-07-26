@@ -63,7 +63,7 @@ namespace PictureLink.GameLogic
             }
             foreach(var mark in marks)
             {
-                this.Repository.Insert<IMarkDTO>(new MarkDTO() {Guess = mark.Item1, Score = mark.Item2, Awarder = this});
+                //this.Repository.Insert<IMarkDTO>(new MarkDTO() {Guess = mark.Item1, Score = mark.Item2, Awarder = this});
             }    
         }
 

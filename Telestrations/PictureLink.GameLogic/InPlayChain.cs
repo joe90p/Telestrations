@@ -10,7 +10,7 @@ namespace PictureLink.GameLogic
 {
     public class InPlayChain : IInPlayChain
     {
-        public const int MaximumLength = 4;
+        public const int MaximumLength = 2;
 
         private const string LockedMessage = "This chain is locked to {0}";
 

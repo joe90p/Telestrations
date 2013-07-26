@@ -14,7 +14,8 @@ namespace PictureLink.Data
         void Delete<T>(T target);
         void Save<T>(T target);
         void Insert<T>(object target);
-        IEnumerable<IChainDTO> GetUnMarkedChains();
-        IChainDTO GetChain(int index);
+        IEnumerable<Chain> GetUnMarkedChains(int playerId);
+        Chain GetChain(int index);
+        void AddChain(IEnumerable<IGuessDTO> guesses);
     }
 }

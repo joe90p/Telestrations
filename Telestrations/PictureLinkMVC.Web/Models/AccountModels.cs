@@ -5,12 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Globalization;
 using System.Web.Security;
+using PictureLink.Data;
+
 
 namespace PictureLinkMVC.Web.Models
 {
-    public class UsersContext : DbContext
+    /*public class PLinkContext : DbContext
     {
-        public UsersContext()
+        public PLinkContext()
             : base("DefaultConnection")
         {
         }
@@ -25,7 +27,7 @@ namespace PictureLinkMVC.Web.Models
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
         public string UserName { get; set; }
-    }
+    }*/
 
     public class RegisterExternalLoginModel
     {

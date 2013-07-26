@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Threading;
 using System.Web.Mvc;
+using PictureLink.Data;
 using WebMatrix.WebData;
 using PictureLinkMVC.Web.Models;
 
@@ -25,11 +26,11 @@ namespace PictureLinkMVC.Web.Filters
         {
             public SimpleMembershipInitializer()
             {
-                Database.SetInitializer<UsersContext>(null);
+                Database.SetInitializer<PLinkContext>(null);
 
                 try
                 {
-                    using (var context = new UsersContext())
+                    using (var context = new PLinkContext())
                     {
                         if (!context.Database.Exists())
                         {

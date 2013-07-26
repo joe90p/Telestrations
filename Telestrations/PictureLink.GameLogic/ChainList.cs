@@ -22,7 +22,7 @@ namespace PictureLink.GameLogic
         public ChainList()
         {
             this.Chains = new List<IInPlayChain>();
-            this.Repository = new MockHelper.MockRepository();
+            this.Repository = new Repository();
         }
 
         public IInPlayChain GetLongestChainForPlayer(IPlayer player)
@@ -43,12 +43,10 @@ namespace PictureLink.GameLogic
         public void chain_MaximumChainLengthReached(object sender, EventArgs e)
         {
             var s = sender as IInPlayChain;
+
             this.Chains.Remove(s);
-            this.Repository.Save(s);
-            foreach(var guess in s.Guesses)
-            {
-                this.Repository.Save(guess);
-            }
+
+            this.Repository.AddChain(s.Guesses);
         }
 
     }

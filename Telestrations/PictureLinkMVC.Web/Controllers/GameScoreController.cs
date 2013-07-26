@@ -17,7 +17,7 @@ namespace PictureLinkMVC.Web.Controllers
         public ActionResult Index()
         {
             var gameScoring = new GameScoring();
-            var playerId = 2;
+            var playerId = WebSecurity.GetUserId(User.Identity.Name);
             var unmarkedChains = gameScoring.GetUnMarkedChains(playerId);
 
             var model = unmarkedChains.Select(c => new ChainSummary(c, playerId)).ToArray();
@@ -28,11 +28,7 @@ namespace PictureLinkMVC.Web.Controllers
         public ActionResult ChainsView(bool toMark)
         {
             var gameScoring = new GameScoring();
-            var playerId = 2;
-            //TEST
-            var x = new GameScoreContext();
-            var anything = x.Thingys.ToList();
-            //END TEST
+            var playerId = WebSecurity.GetUserId(User.Identity.Name);
             var unmarkedChains = gameScoring.GetUnMarkedChains(playerId);
 
             var model = unmarkedChains.Select(c => new ChainSummary(c, playerId)).ToArray();

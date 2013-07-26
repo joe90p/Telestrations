@@ -47,6 +47,29 @@ namespace PictureLink.Data.Test
             {
                 return MakeChain(index);
             }
+
+
+            public void AddChain(IEnumerable<IGuessDTO> guesses)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            public IEnumerable<IChainDTO> GetUnMarkedChains(int playerId)
+            {
+                throw new NotImplementedException();
+            }
+
+
+            IEnumerable<Chain> IRepository.GetUnMarkedChains(int playerId)
+            {
+                throw new NotImplementedException();
+            }
+
+            Chain IRepository.GetChain(int index)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         public class MockGuessesFactory

@@ -10,16 +10,16 @@ namespace PictureLink.GameLogic
 {
     public class GameScoring
     {
-        private IRepository repository = new MockHelper.MockRepository();
+        private IRepository repository = new Repository();
 
-        public IEnumerable<IChainDTO> GetUnMarkedChains(int playerId)
+        public IEnumerable<Chain> GetUnMarkedChains(int playerId)
         {
-            var chains = this.repository.GetUnMarkedChains();
+            var chains = this.repository.GetUnMarkedChains(playerId);
             return chains;
 
         }
 
-        public IChainDTO GetChain(int id)
+        public Chain GetChain(int id)
         {
             var chain = this.repository.GetChain(id);
             return chain;

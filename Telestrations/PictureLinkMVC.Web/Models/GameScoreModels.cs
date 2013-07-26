@@ -20,13 +20,13 @@ namespace PictureLinkMVC.Web.Models
         public PlayerGuess PlayerGuess { get; set; }
         public string[] OtherContributors { get; set; }
         public int ChainId { get; set; }
-        internal ChainSummary(IChainDTO chain, int playerId)
+        internal ChainSummary(Chain chain, int playerId)
         {
             this.ChainId = chain.Id;
-            var playerGuess = chain.Guesses.FirstOrDefault(g => g.Contributor.Id == playerId);
+            var playerGuess = chain.Guesses.FirstOrDefault(g => g.Contributor.UserId == playerId);
             this.PlayerGuess = new PlayerGuess(playerGuess.Content, playerGuess.Type.ToString());
             this.OtherContributors =
-                chain.Guesses.Where(g => g.Contributor.Id != playerId).Select(g => g.Contributor.Name).ToArray();
+                chain.Guesses.Where(g => g.Contributor.UserId != playerId).Select(g => g.Contributor.UserName).ToArray();
         }
 
     }
@@ -51,11 +51,11 @@ namespace PictureLinkMVC.Web.Models
         {
             get; set; }
 
-        public GuessForMarking(IGuessDTO guess)
+        public GuessForMarking(Guess guess)
         {
-            this.ContributorName = guess.Contributor.Name;
+            this.ContributorName = guess.Contributor.UserName;
             this.Content = guess.Content;
-            this.ContentType = guess.Type.ToString();
+            this.ContentType = guess.Type;
             this.GuessId = GuessId;
             this.AvailableMarks = new SelectList(new[] { 0, 1, 2, 3 });
 
